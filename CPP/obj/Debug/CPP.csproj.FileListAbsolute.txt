@@ -1,0 +1,9 @@
+C:\Users\Mrbh\source\repos\CPP\CPP\obj\Debug\CPP.csprojAssemblyReference.cache
+C:\Users\Mrbh\source\repos\CPP\CPP\obj\Debug\CPP.Form1.resources
+C:\Users\Mrbh\source\repos\CPP\CPP\obj\Debug\CPP.Properties.Resources.resources
+C:\Users\Mrbh\source\repos\CPP\CPP\obj\Debug\CPP.csproj.GenerateResource.cache
+C:\Users\Mrbh\source\repos\CPP\CPP\bin\Debug\CPP.exe.config
+C:\Users\Mrbh\source\repos\CPP\CPP\bin\Debug\CPP.exe
+C:\Users\Mrbh\source\repos\CPP\CPP\bin\Debug\CPP.pdb
+C:\Users\Mrbh\source\repos\CPP\CPP\obj\Debug\CPP.exe
+C:\Users\Mrbh\source\repos\CPP\CPP\obj\Debug\CPP.pdb

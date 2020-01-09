@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="CPP.Form1" Collapsed="true">
+    <Position X="27.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAADAAAJAAAACAAAACAgAAAAAAAFAAAAAAAAA=</HashCode>
+      <FileName>Form1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPP.FormulaParse">
+    <Position X="21.25" Y="0.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAgAAgACBAABAAQAADAAEAAAAAAAAAA=</HashCode>
+      <FileName>FormulaParse.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="BinaryTree" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CPP.Program" Collapsed="true">
+    <Position X="29.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPP.Properties.Resources" Collapsed="true">
+    <Position X="26" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPP.Properties.Settings" Collapsed="true">
+    <Position X="27.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPP.Functions.CosFunc">
+    <Position X="4.25" Y="11.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tree (Visitable - Composite Component)\Functions\CosFunc.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPP.Functions.ExponentialFun">
+    <Position X="9.25" Y="11.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tree (Visitable - Composite Component)\Functions\ExponentialFun.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPP.Functions.FactorialFunc">
+    <Position X="11.75" Y="11.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tree (Visitable - Composite Component)\Functions\FactorialFunc.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPP.Functions.Function">
+    <Position X="9.25" Y="9.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tree (Visitable - Composite Component)\Functions\Function.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPP.Functions.SinFunc">
+    <Position X="6.75" Y="11.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tree (Visitable - Composite Component)\Functions\SinFunc.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPP.Functions.TanFunc">
+    <Position X="14.25" Y="11.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tree (Visitable - Composite Component)\Functions\TanFunc.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPP.Visitable.Node.BinaryTree" BaseTypeListCollapsed="true">
+    <Position X="21.5" Y="5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAEAQAAAAAAAAAAAAAAAAAAAAAAAACAAAQAA=</HashCode>
+      <FileName>Tree (Visitable - Composite Component)\Component\BinaryTree.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="CompositeNode" />
+      <Property Name="SingleNode" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CPP.Visitable.Node.CompositeNode">
+    <Position X="17.5" Y="4.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>EAAgAAAAABAAAAAAAAABQAAAAAIAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tree (Visitable - Composite Component)\Component\CompositeNode.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CPP.Visitable.Node.SingleNode" BaseTypeListCollapsed="true">
+    <Position X="21.25" Y="8" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQIAAAAIAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tree (Visitable - Composite Component)\Component\SingleNode.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CPP.Operations.AddOperator">
+    <Position X="4.25" Y="7.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tree (Visitable - Composite Component)\Operations\AddOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPP.Operations.DivisionOperator">
+    <Position X="6.75" Y="7.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tree (Visitable - Composite Component)\Operations\DivisionOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPP.Operations.MultipicationOperator">
+    <Position X="9.25" Y="7.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tree (Visitable - Composite Component)\Operations\MultipicationOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPP.Operations.Operation">
+    <Position X="9.25" Y="5.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tree (Visitable - Composite Component)\Operations\Operation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPP.Operations.PowerOperator">
+    <Position X="11.75" Y="7.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tree (Visitable - Composite Component)\Operations\PowerOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPP.Operations.SubstracOperator">
+    <Position X="14.25" Y="7.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tree (Visitable - Composite Component)\Operations\SubstracOperator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CPP.Visitor.Calculate" BaseTypeListCollapsed="true">
+    <Position X="25.25" Y="5.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Visitor\Calculate.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="CPP.Visitor.Infix_Generator" Collapsed="true">
+    <Position X="35.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Visitor\Infix_Generator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="CPP.IMathematicalOperation" Collapsed="true">
+    <Position X="25.5" Y="3.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tree (Visitable - Composite Component)\IMathematicalOperation.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="CPP.Visitor.IVisitor" Collapsed="true">
+    <Position X="26" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Visitor\IVisitor.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="CPP.Visitable.Node.Component" Collapsed="true">
+    <Position X="25.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tree (Visitable - Composite Component)\Component.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
