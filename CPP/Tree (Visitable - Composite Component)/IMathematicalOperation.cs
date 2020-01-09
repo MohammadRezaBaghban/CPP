@@ -9,7 +9,7 @@ namespace CPP
 {
     public interface IMathematicalOperation 
     {
-        double evaluate(IVisitor visitor);
+        void Evaluate(IVisitor visitor);
 
         double Data { get; set; }
     }

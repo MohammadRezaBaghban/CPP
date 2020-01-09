@@ -28,6 +28,8 @@ namespace CPP.Visitable.Node
             Data = data;
         }
 
-        public double evaluate(IVisitor visitor) => Data;
+        public void Evaluate(IVisitor visitor)
+        {
+        }
     }
 }

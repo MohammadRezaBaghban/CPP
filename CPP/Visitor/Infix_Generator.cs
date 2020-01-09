@@ -15,52 +15,52 @@ namespace CPP.Visitor
             throw new NotImplementedException();
         }
 
-        public double Visit(AddOperator visitable)
+        public void Visit(AddOperator visitable)
         {
             throw new NotImplementedException();
         }
 
-        public double Visit(SubstracOperator visitable)
+        public void Visit(SubstracOperator visitable)
         {
             throw new NotImplementedException();
         }
 
-        public double Visit(MultipicationOperator visitable)
+        public void Visit(MultipicationOperator visitable)
         {
             throw new NotImplementedException();
         }
 
-        public double Visit(DivisionOperator visitable)
+        public void Visit(DivisionOperator visitable)
         {
             throw new NotImplementedException();
         }
 
-        public double Visit(PowerOperator visitable)
+        public void Visit(PowerOperator visitable)
         {
             throw new NotImplementedException();
         }
 
-        public double Visit(FactorialFunc visitable)
+        public void Visit(FactorialFunc visitable)
         {
             throw new NotImplementedException();
         }
 
-        public double Visit(ExponentialFun visitable)
+        public void Visit(ExponentialFun visitable)
         {
             throw new NotImplementedException();
         }
 
-        public double Visit(SinFunc visitable)
+        public void Visit(SinFunc visitable)
         {
             throw new NotImplementedException();
         }
 
-        public double Visit(CosFunc visitable)
+        public void Visit(CosFunc visitable)
         {
             throw new NotImplementedException();
         }
 
-        public double Visit(TanFunc visitable)
+        public void Visit(TanFunc visitable)
         {
             throw new NotImplementedException();
         }

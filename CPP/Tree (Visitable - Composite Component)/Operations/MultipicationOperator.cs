@@ -10,9 +10,9 @@ namespace CPP.Operations
 {
     public class MultipicationOperator : Operation
     {
-        public override double evaluate(IVisitor c)
+        public override void Evaluate(IVisitor c)
         {
-            return c.Visit(this);
+            c.Visit(this);
         }
     }
 }

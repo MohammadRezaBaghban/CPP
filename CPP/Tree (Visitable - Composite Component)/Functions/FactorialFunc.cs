@@ -10,9 +10,9 @@ namespace CPP.Functions
 {
     public class FactorialFunc : Function
     {
-        public override double evaluate(IVisitor c)
+        public override void Evaluate(IVisitor c)
         {
-            return c.Visit(this);
+            c.Visit(this);
         }
     }
 }

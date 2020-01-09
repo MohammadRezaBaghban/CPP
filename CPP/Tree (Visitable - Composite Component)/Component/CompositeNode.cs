@@ -20,7 +20,7 @@ namespace CPP.Visitable.Node
         public CompositeNode Parent { get; set; }
 
         //Methods
-        public abstract double evaluate(IVisitor c);
+        public abstract void Evaluate(IVisitor c);
         public abstract bool OneInput();
 
     }

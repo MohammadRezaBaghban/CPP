@@ -12,25 +12,25 @@ namespace CPP.Visitor
     {
         double TraverseForCalculate(IMathematicalOperation visitable);
 
-        double Visit(AddOperator visitable);
+        void Visit(AddOperator visitable);
 
-        double Visit(SubstracOperator visitable);
+        void Visit(SubstracOperator visitable);
 
-        double Visit(MultipicationOperator visitable);
+        void Visit(MultipicationOperator visitable);
 
-        double Visit(DivisionOperator visitable);
+        void Visit(DivisionOperator visitable);
 
-        double Visit(PowerOperator visitable);
+        void Visit(PowerOperator visitable);
 
-        double Visit(FactorialFunc visitable);
+        void Visit(FactorialFunc visitable);
 
-        double Visit(ExponentialFun visitable);
+        void Visit(ExponentialFun visitable);
 
-        double Visit(SinFunc visitable);
+        void Visit(SinFunc visitable);
 
-        double Visit(CosFunc visitable);
+        void Visit(CosFunc visitable);
 
-        double Visit(TanFunc visitable);
+        void Visit(TanFunc visitable);
     }
     
 }
