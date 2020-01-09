@@ -13,7 +13,7 @@ namespace CPP.Visitor
     class Calculate : IVisitor
     {
 
-        public double TraverseForCalculate(IMathematicalOperation visitable)
+        public void TraverseForCalculate(IMathematicalOperation visitable)
         {
             if (visitable is SingleNode)
             {
@@ -21,12 +21,9 @@ namespace CPP.Visitor
 
                 if (single.IsVariable)
                 {
-                    return single.Data = 10;
+                    single.Data = 10;
                 }
-                else
-                {
-                    return single.Data;
-                }        
+                     
             }
             else
             {
@@ -35,7 +32,6 @@ namespace CPP.Visitor
                 {
                     TraverseForCalculate(compositeNode.LeftNode);                    
                     compositeNode.Evaluate(this);
-                    return compositeNode.Data;
                 }
                 else
                 {
@@ -43,7 +39,6 @@ namespace CPP.Visitor
                     TraverseForCalculate(compositeNode.LeftNode);
                     TraverseForCalculate(compositeNode.RightNode);
                     visitable.Evaluate(this);
-                    return visitable.Data;
                 }
             }
         }

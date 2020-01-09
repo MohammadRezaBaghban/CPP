@@ -57,10 +57,12 @@ namespace CPP
                 }
                 
                 var rootOfBinaryTree = fp.Convert_ParsedList_To_BinaryTree(list);
+                
                 Calculate calculator = new Calculate();
+                calculator.TraverseForCalculate(rootOfBinaryTree);
 
                 LBContainingElement.Items.Add("=");
-                LBContainingElement.Items.Add(calculator.TraverseForCalculate(rootOfBinaryTree).ToString());
+                LBContainingElement.Items.Add(rootOfBinaryTree.Data);
 
             }
         }

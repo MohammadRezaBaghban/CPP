@@ -10,7 +10,7 @@ namespace CPP.Visitor
 {
     public interface IVisitor
     {
-        double TraverseForCalculate(IMathematicalOperation visitable);
+        void TraverseForCalculate(IMathematicalOperation visitable);
 
         void Visit(AddOperator visitable);
 

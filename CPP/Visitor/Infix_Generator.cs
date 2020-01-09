@@ -10,7 +10,7 @@ namespace CPP.Visitor
 {
     public class Infix_Generator : IVisitor
     {
-        public double TraverseForCalculate(IMathematicalOperation visitable)
+        public void TraverseForCalculate(IMathematicalOperation visitable)
         {
             throw new NotImplementedException();
         }
