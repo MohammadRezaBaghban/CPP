@@ -13,6 +13,8 @@ namespace CPP.Visitable.Node
         
         public bool IsVariable;
         public double Data { get; set; }
+        public string InFixFormula { get; set; }
+
         public CompositeNode Parent { get; set; }
         
 
@@ -20,12 +22,15 @@ namespace CPP.Visitable.Node
         {
             Parent = parent;
             IsVariable = true;
+            InFixFormula = "x";
         }
 
         public SingleNode(CompositeNode parent, double data)
         {
             Parent = parent;
             Data = data;
+            InFixFormula = $"{data}";
+
         }
 
         public void Evaluate(IVisitor visitor)

@@ -37,12 +37,12 @@ namespace CPP
 
         private void BtnParseRecursively_Click(object sender, EventArgs e)
         {
-            var input = TbText.Text.Trim();
+            var input = TbPrefixFormula.Text.Trim();
 
             if (input.Length < 4)
             {
                 MessageBox.Show("Please Enter a correct input");
-                TbText.Text = "";
+                TbPrefixFormula.Text = "";
             }
             else
             {
@@ -57,12 +57,18 @@ namespace CPP
                 }
                 
                 var rootOfBinaryTree = fp.Convert_ParsedList_To_BinaryTree(list);
-                
-                Calculate calculator = new Calculate();
+
+
+
+                var calculator = new Calculate();
+                var infixGenerator = new Infix_Generator();
+
+                infixGenerator.TraverseForCalculate(rootOfBinaryTree);
                 calculator.TraverseForCalculate(rootOfBinaryTree);
 
                 LBContainingElement.Items.Add("=");
                 LBContainingElement.Items.Add(rootOfBinaryTree.Data);
+                TbInfixFourmula.Text = rootOfBinaryTree.InFixFormula;
 
             }
         }

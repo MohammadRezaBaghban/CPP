@@ -13,7 +13,8 @@ namespace CPP.Visitable.Node
 
         double Data { get; set; }
 
+        string InFixFormula { get; set; }
 
-        
+
     }
 }

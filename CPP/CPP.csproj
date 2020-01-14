@@ -49,6 +49,7 @@
     <Compile Include="Tree %28Visitable - Composite Component%29\Component\BinaryTree.cs" />
     <Compile Include="Tree %28Visitable - Composite Component%29\Functions\ExponentialFun.cs" />
     <Compile Include="Tree %28Visitable - Composite Component%29\Functions\FactorialFunc.cs" />
+    <Compile Include="Tree %28Visitable - Composite Component%29\Functions\LogarithmFunc.cs" />
     <Compile Include="Tree %28Visitable - Composite Component%29\IMathematicalOperation.cs" />
     <Compile Include="Tree %28Visitable - Composite Component%29\Component.cs" />
     <Compile Include="Tree %28Visitable - Composite Component%29\Operations\AddOperator.cs" />

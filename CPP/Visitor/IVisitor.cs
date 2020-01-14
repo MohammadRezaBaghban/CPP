@@ -1,5 +1,6 @@
 ﻿using CPP.Functions;
 using CPP.Operations;
+using CPP.Tree__Visitable___Composite_Component_.Functions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,8 @@ namespace CPP.Visitor
         void Visit(CosFunc visitable);
 
         void Visit(TanFunc visitable);
+
+        void Visit(LogarithmFunc visitable);
     }
     
 }

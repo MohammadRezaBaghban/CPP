@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CPP.Functions;
 using CPP.Operations;
+using CPP.Tree__Visitable___Composite_Component_.Functions;
 using CPP.Visitable.Node;
 
 namespace CPP
@@ -65,6 +66,7 @@ namespace CPP
 
                         case 'r':
                         case 'n':
+
                             inputs.Add(expression[0].ToString());
                             expression = EatMethod(ref expression);
                             expression = EatMethod(ref expression);
@@ -160,10 +162,7 @@ namespace CPP
             {
                 switch (input[i])
                 {
-                    //Real and Natural Numbers
-                    case "r":
-                    case "n":
-                        break;
+                   
 
                     //Operators
                     case "+":
@@ -181,22 +180,29 @@ namespace CPP
                     case "^":
                         root = bt.InsertCompositeNode(root, new PowerOperator());
                         break;
-
+                        
 
                     //Functions
                     case "s":
+                    case "S":
                         root = bt.InsertCompositeNode(root, new SinFunc());
                         break;
                     case "c":
+                    case "C":
                         root = bt.InsertCompositeNode(root, new CosFunc());
                         break;
-                    case "l":
+                    case "e":
+                    case "E":
                         root = bt.InsertCompositeNode(root, new ExponentialFun());
+                        break;
+                    case "L":
+                    case "l":
+                        root = bt.InsertCompositeNode(root, new LogarithmFunc());
                         break;
                     case "!":
                         root = bt.InsertCompositeNode(root, new FactorialFunc());
                         break;
-
+                    
                     //Variables                    
                     case "X":
                     case "x":
@@ -207,6 +213,12 @@ namespace CPP
                     case "p":
                     case "P":
                         bt.InsertSingleNode(root, new SingleNode(root, 3.14));
+                        break;
+
+                    //Real and Natural Numbers
+                    case "r":
+                    case "n":
+                        root = bt.InsertSingleNode(root, new SingleNode(root, Convert.ToDouble(input[++i])));
                         break;
 
                     default:
