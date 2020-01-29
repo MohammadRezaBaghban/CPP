@@ -191,6 +191,10 @@ namespace CPP
                     case "C":
                         root = bt.InsertCompositeNode(root, new CosFunc());
                         break;
+                    case "t":
+                    case "T":
+                        root = bt.InsertCompositeNode(root, new TanFunc());
+                        break;
                     case "e":
                     case "E":
                         root = bt.InsertCompositeNode(root, new ExponentialFun());
