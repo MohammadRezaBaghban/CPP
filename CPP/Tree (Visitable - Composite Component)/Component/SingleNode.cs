@@ -14,7 +14,7 @@ namespace CPP.Visitable.Node
     {
         
         public bool IsVariable;
-        public double Data { get; set; }
+        public decimal Data { get; set; }
         public string InFixFormula { get; set; }
 
         public CompositeNode Parent { get; set; }
@@ -27,7 +27,7 @@ namespace CPP.Visitable.Node
             InFixFormula = "x";
         }
 
-        public SingleNode(CompositeNode parent, double data)
+        public SingleNode(CompositeNode parent, decimal data)
         {
             Parent = parent;
             Data = data;

@@ -18,7 +18,7 @@ namespace CPP.Visitable.Node
         public Component LeftNode;
         public Component RightNode;
 
-        public double Data { get; set; }
+        public decimal Data { get; set; }
         public string InFixFormula { get; set; }
         public CompositeNode Parent { get; set; }
 

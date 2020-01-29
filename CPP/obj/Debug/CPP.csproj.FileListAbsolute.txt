@@ -16,3 +16,13 @@ C:\Mrbh\University\Fontys\Curriculum\2nd Year\4th Block\CPP\CPP Repos\CPP\obj\De
 C:\Mrbh\University\Fontys\Curriculum\2nd Year\4th Block\CPP\CPP Repos\CPP\obj\Debug\CPP.csproj.GenerateResource.cache
 C:\Mrbh\University\Fontys\Curriculum\2nd Year\4th Block\CPP\CPP Repos\CPP\obj\Debug\CPP.exe
 C:\Mrbh\University\Fontys\Curriculum\2nd Year\4th Block\CPP\CPP Repos\CPP\obj\Debug\CPP.pdb
+C:\Mrbh\University\Fontys\Curriculum\2nd Year\4th Block\CPP\CPP Repos\CPP\bin\Debug\LiveCharts.dll
+C:\Mrbh\University\Fontys\Curriculum\2nd Year\4th Block\CPP\CPP Repos\CPP\bin\Debug\LiveCharts.WinForms.dll
+C:\Mrbh\University\Fontys\Curriculum\2nd Year\4th Block\CPP\CPP Repos\CPP\bin\Debug\LiveCharts.Wpf.dll
+C:\Mrbh\University\Fontys\Curriculum\2nd Year\4th Block\CPP\CPP Repos\CPP\bin\Debug\LiveCharts.pdb
+C:\Mrbh\University\Fontys\Curriculum\2nd Year\4th Block\CPP\CPP Repos\CPP\bin\Debug\LiveCharts.xml
+C:\Mrbh\University\Fontys\Curriculum\2nd Year\4th Block\CPP\CPP Repos\CPP\bin\Debug\LiveCharts.WinForms.pdb
+C:\Mrbh\University\Fontys\Curriculum\2nd Year\4th Block\CPP\CPP Repos\CPP\bin\Debug\LiveCharts.WinForms.xml
+C:\Mrbh\University\Fontys\Curriculum\2nd Year\4th Block\CPP\CPP Repos\CPP\bin\Debug\LiveCharts.Wpf.pdb
+C:\Mrbh\University\Fontys\Curriculum\2nd Year\4th Block\CPP\CPP Repos\CPP\bin\Debug\LiveCharts.Wpf.xml
+C:\Mrbh\University\Fontys\Curriculum\2nd Year\4th Block\CPP\CPP Repos\CPP\obj\Debug\CPP.csproj.CopyComplete

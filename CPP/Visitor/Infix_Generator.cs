@@ -15,8 +15,6 @@ namespace CPP.Visitor
         public void TraverseForCalculate(IMathematicalOperation visitable)
         {
            
-
-
             CompositeNode compositeNode = visitable as CompositeNode;
             if (compositeNode is Function)
             {
@@ -34,23 +32,23 @@ namespace CPP.Visitor
 
         public void Visit(SubstracOperator visitable) => visitable.InFixFormula =  visitable.LeftNode.InFixFormula + " - " + visitable.RightNode.InFixFormula;
 
-        public void Visit(MultipicationOperator visitable) => visitable.InFixFormula = "(" + visitable.LeftNode.InFixFormula + " * " + visitable.RightNode.InFixFormula + ")";
+        public void Visit(MultipicationOperator visitable) => visitable.InFixFormula = "(" + visitable.LeftNode.InFixFormula + ") * (" + visitable.RightNode.InFixFormula + ")";
 
-        public void Visit(DivisionOperator visitable) => visitable.InFixFormula = "(" + visitable.LeftNode.InFixFormula + " / " + visitable.RightNode.InFixFormula + ")";
+        public void Visit(DivisionOperator visitable) => visitable.InFixFormula = "(" + visitable.LeftNode.InFixFormula + ") / (" + visitable.RightNode.InFixFormula + ")";
 
         public void Visit(PowerOperator visitable) => visitable.InFixFormula = visitable.LeftNode.InFixFormula + " ^ " + visitable.RightNode.InFixFormula;
 
-        public void Visit(FactorialFunc visitable) => visitable.InFixFormula = " (" + visitable.LeftNode.InFixFormula + ")!";
+        public void Visit(FactorialFunc visitable) => visitable.InFixFormula = "(" + visitable.LeftNode.InFixFormula + ")!";
 
-        public void Visit(LogarithmFunc visitable) => visitable.InFixFormula = " Ln(" + visitable.LeftNode.InFixFormula + ")";
+        public void Visit(LogarithmFunc visitable) => visitable.InFixFormula = "Ln(" + visitable.LeftNode.InFixFormula + ")";
 
-        public void Visit(ExponentialFun visitable) => visitable.InFixFormula = " Exp(" + visitable.LeftNode.InFixFormula + ")";
+        public void Visit(ExponentialFun visitable) => visitable.InFixFormula = "Exp(" + visitable.LeftNode.InFixFormula + ")";
 
-        public void Visit(SinFunc visitable) => visitable.InFixFormula = " Sin(" + visitable.LeftNode.InFixFormula + ")";
+        public void Visit(SinFunc visitable) => visitable.InFixFormula = "Sin(" + visitable.LeftNode.InFixFormula + ")";
 
-        public void Visit(CosFunc visitable) => visitable.InFixFormula = " Cos(" + visitable.LeftNode.InFixFormula + ")";
+        public void Visit(CosFunc visitable) => visitable.InFixFormula = "Cos(" + visitable.LeftNode.InFixFormula + ")";
 
-        public void Visit(TanFunc visitable) => visitable.InFixFormula = " Tan(" + visitable.LeftNode.InFixFormula + ")";
+        public void Visit(TanFunc visitable) => visitable.InFixFormula = "Tan(" + visitable.LeftNode.InFixFormula + ")";
 
     }
 }

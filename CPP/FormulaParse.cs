@@ -212,17 +212,17 @@ namespace CPP
                     // Values
                     case "p":
                     case "P":
-                        bt.InsertSingleNode(root, new SingleNode(root, 3.14));
+                        bt.InsertSingleNode(root, new SingleNode(root, 3.14m));
                         break;
 
                     //Real and Natural Numbers
                     case "r":
                     case "n":
-                        root = bt.InsertSingleNode(root, new SingleNode(root, Convert.ToDouble(input[++i])));
+                        root = bt.InsertSingleNode(root, new SingleNode(root, Convert.ToDecimal(input[++i])));
                         break;
 
                     default:
-                        bt.InsertSingleNode(root, new SingleNode(root, Convert.ToDouble(input[i])));
+                        bt.InsertSingleNode(root, new SingleNode(root, Convert.ToDecimal(input[i])));
                         break;
                 }
 

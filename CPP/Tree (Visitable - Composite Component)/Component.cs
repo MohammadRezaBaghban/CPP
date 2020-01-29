@@ -11,7 +11,7 @@ namespace CPP.Visitable.Node
     {
         CompositeNode Parent { get; set; }
 
-        double Data { get; set; }
+        decimal Data { get; set; }
 
         string InFixFormula { get; set; }
 
