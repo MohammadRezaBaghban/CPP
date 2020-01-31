@@ -35,7 +35,9 @@
             this.TbPrefixFormula = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
+            this.PbBinaryGraph = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PbBinaryGraph)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -110,11 +112,22 @@
             this.cartesianChart1.TabIndex = 2;
             this.cartesianChart1.Text = "cartesianChart1";
             // 
+            // PbBinaryGraph
+            // 
+            this.PbBinaryGraph.Dock = System.Windows.Forms.DockStyle.Right;
+            this.PbBinaryGraph.Location = new System.Drawing.Point(773, 137);
+            this.PbBinaryGraph.Name = "PbBinaryGraph";
+            this.PbBinaryGraph.Size = new System.Drawing.Size(545, 564);
+            this.PbBinaryGraph.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PbBinaryGraph.TabIndex = 3;
+            this.PbBinaryGraph.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 38F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1318, 701);
+            this.Controls.Add(this.PbBinaryGraph);
             this.Controls.Add(this.cartesianChart1);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -123,6 +136,7 @@
             this.Text = "Form1";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PbBinaryGraph)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -136,6 +150,7 @@
         private System.Windows.Forms.TextBox TbPrefixFormula;
         private System.Windows.Forms.Label label1;
         private LiveCharts.WinForms.CartesianChart cartesianChart1;
+        private System.Windows.Forms.PictureBox PbBinaryGraph;
     }
 }
 

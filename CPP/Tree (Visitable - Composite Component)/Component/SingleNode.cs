@@ -12,26 +12,34 @@ namespace CPP.Visitable.Node
     [DebuggerDisplay("{ToString, nq}")]
     public class SingleNode : Component
     {
-        
+
         public bool IsVariable;
+        public int NodeNumber { get; }
         public decimal Data { get; set; }
         public string InFixFormula { get; set; }
 
         public CompositeNode Parent { get; set; }
-        
+        public string Symbol { get; set; }
+
+        public string GraphVizFormula => $"node{NodeNumber} [ label = \"{Symbol}\" ]";
 
         public SingleNode(CompositeNode parent)
         {
             Parent = parent;
             IsVariable = true;
             InFixFormula = "x";
+            Symbol = InFixFormula;
+            NodeNumber = FormulaParse.nodeCounter;
         }
 
         public SingleNode(CompositeNode parent, decimal data)
         {
+
             Parent = parent;
             Data = data;
             InFixFormula = $"{data}";
+            Symbol = InFixFormula;
+            NodeNumber = FormulaParse.nodeCounter;
 
         }
 

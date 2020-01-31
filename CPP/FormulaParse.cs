@@ -9,6 +9,7 @@ namespace CPP
 {
     class FormulaParse
     {
+        public static int nodeCounter = 0;
         private List<string> inputs;
         BinaryTree bt;
 
@@ -160,6 +161,7 @@ namespace CPP
             CompositeNode root = bt._root;
             for (int i = 0; i <= input.Count - 1; i++)
             {
+                nodeCounter++;
                 switch (input[i])
                 {
                    
@@ -231,6 +233,7 @@ namespace CPP
                 }
 
             }
+            nodeCounter = 0;
             return bt._root;
 
         }

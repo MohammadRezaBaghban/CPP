@@ -10,6 +10,11 @@ namespace CPP.Operations
 {
     public class DivisionOperator : Operation
     {
+        public DivisionOperator()
+        {
+            Symbol = "/";
+        }
+
         public override void Evaluate(IVisitor c)
         {
             c.Visit(this);

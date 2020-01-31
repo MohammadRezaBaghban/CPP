@@ -18,9 +18,31 @@ namespace CPP.Visitable.Node
         public Component LeftNode;
         public Component RightNode;
 
+        public int NodeNumber { get; } = FormulaParse.nodeCounter;
         public decimal Data { get; set; }
+        public string Symbol { get; set; }
         public string InFixFormula { get; set; }
         public CompositeNode Parent { get; set; }
+
+        public string GraphVizFormula
+        {
+            get
+            {
+                string temp = "";
+                temp += $"node{NodeNumber} [ label = \"{Symbol}\" ]";
+                if (LeftNode != null)
+                {
+                    temp += $"\nnode{NodeNumber} -- node{LeftNode.NodeNumber}\n";
+                    temp += LeftNode.GraphVizFormula;
+                }
+                if (RightNode != null)
+                {
+                    temp += $"\nnode{NodeNumber} -- node{RightNode.NodeNumber}\n";
+                    temp += RightNode.GraphVizFormula;
+                }
+                return temp;
+            }
+        }
 
         //Methods
         public abstract void Evaluate(IVisitor c);
@@ -34,5 +56,8 @@ namespace CPP.Visitable.Node
                    + $" | RightNode: {RightNode.GetType().Name}"
                    + $" | LeftNode: {LeftNode.GetType().Name}";
         }
+
+
+        
     }
 }

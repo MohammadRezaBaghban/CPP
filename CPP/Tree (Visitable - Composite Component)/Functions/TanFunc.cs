@@ -9,7 +9,13 @@ using CPP.Visitor;
 namespace CPP.Functions
 {
     public class TanFunc : Function
-    {
+
+    { 
+        public TanFunc()
+        {
+            Symbol = "Tan";
+        }
+
         public override void Evaluate(IVisitor c)
         {
             c.Visit(this);

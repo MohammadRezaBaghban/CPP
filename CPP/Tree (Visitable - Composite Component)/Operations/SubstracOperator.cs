@@ -10,6 +10,11 @@ namespace CPP.Operations
 {
     public class SubstracOperator : Operation
     {
+        public SubstracOperator()
+        {
+            Symbol = "-";
+        }
+
         public override void Evaluate(IVisitor c)
         {
             c.Visit(this);

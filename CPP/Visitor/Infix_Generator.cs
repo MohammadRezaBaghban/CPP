@@ -28,6 +28,8 @@ namespace CPP.Visitor
                 compositeNode.Evaluate(this);
             }
         }
+
+       
         public void Visit(AddOperator visitable) => visitable.InFixFormula =  visitable.LeftNode.InFixFormula + " + " + visitable.RightNode.InFixFormula;
 
         public void Visit(SubstracOperator visitable) => visitable.InFixFormula =  visitable.LeftNode.InFixFormula + " - " + visitable.RightNode.InFixFormula;

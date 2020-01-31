@@ -9,6 +9,12 @@ namespace CPP.Operations
 {
     public class AddOperator : Operation
     {
+
+        public AddOperator()
+        {
+            Symbol = "+";
+        }
+
         public override void Evaluate(IVisitor c)
         {
             c.Visit(this);
