@@ -11,10 +11,13 @@ namespace CPP.Visitable.Node
     {
         CompositeNode Parent { get; set; }
 
-        double Data { get; set; }
+        int NodeNumber { get; }
+
+        decimal Data { get; set; }
 
         string InFixFormula { get; set; }
 
+        string GraphVizFormula { get; }
 
     }
 }

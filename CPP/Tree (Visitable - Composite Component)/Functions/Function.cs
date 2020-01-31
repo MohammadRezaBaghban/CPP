@@ -11,5 +11,7 @@ namespace CPP.Functions
     public abstract class Function : CompositeNode
     {        
         public override bool OneInput() => true;
+
+        
     }
 }

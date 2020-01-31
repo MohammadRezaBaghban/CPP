@@ -10,6 +10,11 @@ namespace CPP.Operations
 {
     public class PowerOperator : Operation
     {
+        public PowerOperator()
+        {
+            Symbol = "^";
+        }
+
         public override void Evaluate(IVisitor c)
         {
             c.Visit(this);

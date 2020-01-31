@@ -11,6 +11,8 @@ namespace CPP
     {
         void Evaluate(IVisitor visitor);
 
-        double Data { get; set; }
+        decimal Data { get; set; }
+
+        string Symbol { get; set; }
     }
 }

@@ -10,6 +10,11 @@ namespace CPP.Operations
 {
     public class MultipicationOperator : Operation
     {
+        public MultipicationOperator()
+        {
+            Symbol = "*";
+        }
+
         public override void Evaluate(IVisitor c)
         {
             c.Visit(this);

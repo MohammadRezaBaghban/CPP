@@ -9,6 +9,7 @@ namespace CPP
 {
     class FormulaParse
     {
+        public static int nodeCounter = 0;
         private List<string> inputs;
         BinaryTree bt;
 
@@ -160,6 +161,7 @@ namespace CPP
             CompositeNode root = bt._root;
             for (int i = 0; i <= input.Count - 1; i++)
             {
+                nodeCounter++;
                 switch (input[i])
                 {
                    
@@ -191,6 +193,10 @@ namespace CPP
                     case "C":
                         root = bt.InsertCompositeNode(root, new CosFunc());
                         break;
+                    case "t":
+                    case "T":
+                        root = bt.InsertCompositeNode(root, new TanFunc());
+                        break;
                     case "e":
                     case "E":
                         root = bt.InsertCompositeNode(root, new ExponentialFun());
@@ -212,21 +218,22 @@ namespace CPP
                     // Values
                     case "p":
                     case "P":
-                        bt.InsertSingleNode(root, new SingleNode(root, 3.14));
+                        bt.InsertSingleNode(root, new SingleNode(root, 3.14m));
                         break;
 
                     //Real and Natural Numbers
                     case "r":
                     case "n":
-                        root = bt.InsertSingleNode(root, new SingleNode(root, Convert.ToDouble(input[++i])));
+                        root = bt.InsertSingleNode(root, new SingleNode(root, Convert.ToDecimal(input[++i])));
                         break;
 
                     default:
-                        bt.InsertSingleNode(root, new SingleNode(root, Convert.ToDouble(input[i])));
+                        bt.InsertSingleNode(root, new SingleNode(root, Convert.ToDecimal(input[i])));
                         break;
                 }
 
             }
+            nodeCounter = 0;
             return bt._root;
 
         }
