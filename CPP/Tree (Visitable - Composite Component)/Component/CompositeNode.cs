@@ -10,20 +10,19 @@ using CPP.Visitor;
 
 namespace CPP.Visitable.Node
 {
-    [DebuggerDisplay("{ToString(),nq}")]
+    [DebuggerDisplay("{ToString()}")]
     public abstract class CompositeNode : Component
     {
         //Fields
         public IMathematicalOperation operatorType;
         public Component LeftNode;
         public Component RightNode;
-
-        public int NodeNumber { get; } = FormulaParse.nodeCounter;
+        
+        
+        public int NodeNumber { get; set; } = ++FormulaParse.nodeCounter;
         public decimal Data { get; set; }
         public string Symbol { get; set; }
         public string InFixFormula { get; set; }
-        public CompositeNode Parent { get; set; }
-
         public string GraphVizFormula
         {
             get
@@ -43,10 +42,16 @@ namespace CPP.Visitable.Node
                 return temp;
             }
         }
+        public Component Derivation { get; set; }
+
+        public CompositeNode Parent { get; set; }
+
+
+        
 
         //Methods
-        public abstract void Evaluate(IVisitor c);
         public abstract bool OneInput();
+        public abstract void Evaluate(IVisitor c);
 
         public override string ToString()
         {

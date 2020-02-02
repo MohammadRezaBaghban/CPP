@@ -78,7 +78,7 @@
     <Compile Include="FormulaParse.cs" />
     <Compile Include="Tree %28Visitable - Composite Component%29\Functions\Function.cs" />
     <Compile Include="Tree %28Visitable - Composite Component%29\Operations\Operation.cs" />
-    <Compile Include="Tree %28Visitable - Composite Component%29\Operations\MultipicationOperator.cs" />
+    <Compile Include="Tree %28Visitable - Composite Component%29\Operations\MultiplicationOperator.cs" />
     <Compile Include="Tree %28Visitable - Composite Component%29\Component\CompositeNode.cs" />
     <Compile Include="Tree %28Visitable - Composite Component%29\Operations\PowerOperator.cs" />
     <Compile Include="Program.cs" />
@@ -88,6 +88,7 @@
     <Compile Include="Tree %28Visitable - Composite Component%29\Functions\TanFunc.cs" />
     <Compile Include="Tree %28Visitable - Composite Component%29\Component\SingleNode.cs" />
     <Compile Include="Visitor\Calculate.cs" />
+    <Compile Include="Visitor\Derivative.cs" />
     <Compile Include="Visitor\Infix_Generator.cs" />
     <Compile Include="Visitor\IVisitor.cs" />
     <EmbeddedResource Include="Form1.resx">

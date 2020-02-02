@@ -36,6 +36,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
             this.PbBinaryGraph = new System.Windows.Forms.PictureBox();
+            this.Btn_Analytical_Derivation = new System.Windows.Forms.Button();
+            this.BtnClearPlot = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PbBinaryGraph)).BeginInit();
             this.SuspendLayout();
@@ -43,6 +45,8 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.panel1.Controls.Add(this.BtnClearPlot);
+            this.panel1.Controls.Add(this.Btn_Analytical_Derivation);
             this.panel1.Controls.Add(this.LInfixFourmula);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.BtnParseRecursively);
@@ -51,7 +55,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1318, 137);
+            this.panel1.Size = new System.Drawing.Size(1318, 186);
             this.panel1.TabIndex = 0;
             // 
             // LInfixFourmula
@@ -75,7 +79,7 @@
             // 
             this.BtnParseRecursively.Location = new System.Drawing.Point(854, 12);
             this.BtnParseRecursively.Name = "BtnParseRecursively";
-            this.BtnParseRecursively.Size = new System.Drawing.Size(137, 57);
+            this.BtnParseRecursively.Size = new System.Drawing.Size(293, 57);
             this.BtnParseRecursively.TabIndex = 10;
             this.BtnParseRecursively.Text = "Parse Recursively";
             this.BtnParseRecursively.UseVisualStyleBackColor = true;
@@ -106,21 +110,41 @@
             this.cartesianChart1.Cursor = System.Windows.Forms.Cursors.Cross;
             this.cartesianChart1.Dock = System.Windows.Forms.DockStyle.Left;
             this.cartesianChart1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.cartesianChart1.Location = new System.Drawing.Point(0, 137);
+            this.cartesianChart1.Location = new System.Drawing.Point(0, 186);
             this.cartesianChart1.Name = "cartesianChart1";
-            this.cartesianChart1.Size = new System.Drawing.Size(767, 564);
+            this.cartesianChart1.Size = new System.Drawing.Size(767, 515);
             this.cartesianChart1.TabIndex = 2;
             this.cartesianChart1.Text = "cartesianChart1";
             // 
             // PbBinaryGraph
             // 
             this.PbBinaryGraph.Dock = System.Windows.Forms.DockStyle.Right;
-            this.PbBinaryGraph.Location = new System.Drawing.Point(773, 137);
+            this.PbBinaryGraph.Location = new System.Drawing.Point(773, 186);
             this.PbBinaryGraph.Name = "PbBinaryGraph";
-            this.PbBinaryGraph.Size = new System.Drawing.Size(545, 564);
+            this.PbBinaryGraph.Size = new System.Drawing.Size(545, 515);
             this.PbBinaryGraph.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.PbBinaryGraph.TabIndex = 3;
             this.PbBinaryGraph.TabStop = false;
+            // 
+            // Btn_Analytical_Derivation
+            // 
+            this.Btn_Analytical_Derivation.Location = new System.Drawing.Point(854, 77);
+            this.Btn_Analytical_Derivation.Name = "Btn_Analytical_Derivation";
+            this.Btn_Analytical_Derivation.Size = new System.Drawing.Size(293, 57);
+            this.Btn_Analytical_Derivation.TabIndex = 13;
+            this.Btn_Analytical_Derivation.Text = "Analytical Derivation";
+            this.Btn_Analytical_Derivation.UseVisualStyleBackColor = true;
+            this.Btn_Analytical_Derivation.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // BtnClearPlot
+            // 
+            this.BtnClearPlot.Location = new System.Drawing.Point(1154, 12);
+            this.BtnClearPlot.Name = "BtnClearPlot";
+            this.BtnClearPlot.Size = new System.Drawing.Size(152, 57);
+            this.BtnClearPlot.TabIndex = 14;
+            this.BtnClearPlot.Text = "Clear Plot";
+            this.BtnClearPlot.UseVisualStyleBackColor = true;
+            this.BtnClearPlot.Click += new System.EventHandler(this.BtnClearPlot_Click);
             // 
             // Form1
             // 
@@ -151,6 +175,8 @@
         private System.Windows.Forms.Label label1;
         private LiveCharts.WinForms.CartesianChart cartesianChart1;
         private System.Windows.Forms.PictureBox PbBinaryGraph;
+        private System.Windows.Forms.Button Btn_Analytical_Derivation;
+        private System.Windows.Forms.Button BtnClearPlot;
     }
 }
 

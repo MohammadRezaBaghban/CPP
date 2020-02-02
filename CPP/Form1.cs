@@ -1,23 +1,16 @@
 ﻿using CPP.Visitable.Node;
 using CPP.Visitor;
 using LiveCharts;
-using LiveCharts.Configurations;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Media;
+using CPP.Visitable.Node;
 
 namespace CPP
 {
@@ -26,15 +19,46 @@ namespace CPP
         Infix_Generator infixGenerator;
         FormulaParse formulaParser;
         Calculate calculator;
+        Derivative derivationCalculator;
+
         CompositeNode rootOfBinaryTree;
+        Visitable.Node.Component derivation;
         public Form1()
         {
             InitializeComponent();
             formulaParser = new FormulaParse();
             infixGenerator = new Infix_Generator();
             calculator = new Calculate();
+            derivationCalculator = new Derivative(new BinaryTree());
 
-            //cartesianChart1.Series.Clear();
+
+            // Adding Horizontal and Vertical Seperator to Chart
+            cartesianChart1.AxisX.Clear();
+            cartesianChart1.AxisY.Clear();
+            cartesianChart1.AxisX.Add(new Axis
+            {
+                IsMerged = true,
+                Separator = new Separator
+                {
+                    StrokeThickness = 2,
+                    StrokeDashArray = new System.Windows.Media.DoubleCollection(new double[] { 1 }),
+                    Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(64, 79, 86))
+                }
+            });
+            cartesianChart1.AxisY.Add(new Axis
+            {
+                IsMerged = true,
+                Separator = new Separator
+                {
+                    StrokeThickness = 2,
+                    StrokeDashArray = new System.Windows.Media.DoubleCollection(new double[] { 1 }),
+                    Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(64, 79, 86))
+                }
+            });
+            cartesianChart1.DisableAnimations = true;
+            cartesianChart1.Zoom = ZoomingOptions.X;
+            cartesianChart1.LegendLocation = LegendLocation.Top;
+            
         }
 
 
@@ -50,14 +74,21 @@ namespace CPP
                 GenerateBinaryGraph(rootOfBinaryTree.GraphVizFormula);
                 LInfixFourmula.Text = rootOfBinaryTree.InFixFormula + " = " + rootOfBinaryTree.Data.ToString();
 
-                if (LInfixFourmula.Text.Contains("Exp"))
+                if (LInfixFourmula.Text.Contains("Exp") ||
+                    LInfixFourmula.Text.Contains("!") 
+                    )
                 {
                     // To avoid OverFlow Exception
-                    DrawGraphOnCanvas(10);
+                    DrawGraphOnCanvas(rootOfBinaryTree, 10);
+                }
+                else if (LInfixFourmula.Text.Contains("Ln"))
+                {
+                    DrawGraphOnCanvas_PositiveDomain(rootOfBinaryTree, 1000);
+
                 }
                 else
                 {
-                    DrawGraphOnCanvas(1000);
+                    DrawGraphOnCanvas(rootOfBinaryTree, 1000);
                 }
 
             }
@@ -83,85 +114,85 @@ namespace CPP
             }
         }
 
-        public void DrawGraphOnCanvas(int length)
+        public void DrawGraphOnCanvas(Visitable.Node.Component root, int length)
         {
-            Dictionary<decimal, decimal> graphCoordinates = calculator.TraverseForCalculate(rootOfBinaryTree, length);
+            Dictionary<decimal, decimal> graphCoordinates = calculator.TraverseForCalculate(root, length);
 
             var Function_Values = new ChartValues<ObservablePoint>();
-            var Vertical_YLine = new ChartValues<ObservablePoint>();
-            var Horizontal_XLine = new ChartValues<ObservablePoint>();
 
             //Add the coordinate of function to Chart value of Graph in order to show them
             foreach (KeyValuePair<decimal, decimal> coordinate in graphCoordinates)
             {
                 Function_Values.Add(new ObservablePoint(Convert.ToDouble(coordinate.Key), Convert.ToDouble(coordinate.Value)));
-                Vertical_YLine.Add(new ObservablePoint(0, Convert.ToDouble(coordinate.Value)));
-                Horizontal_XLine.Add(new ObservablePoint(Convert.ToDouble(coordinate.Key), 0));
 
             }
-            cartesianChart1.Series = new LiveCharts.SeriesCollection()
+            var graphLine = new LineSeries{
+                Title = $"{root.InFixFormula}",
+                Values = Function_Values,
+                StrokeThickness = 3,
+                PointGeometrySize = 1,
+                Focusable = true,
+                ForceCursor = true,
+                Tag = graphCoordinates,
+                //The Area Under the Graph
+                Fill = System.Windows.Media.Brushes.Transparent,
+            };
+            var Line = new LiveCharts.SeriesCollection()
             {
-                new LineSeries
-                {
-                    Title = $"{rootOfBinaryTree.InFixFormula}",
-                    Values = Function_Values,
-                    StrokeThickness = 3,
-                    PointGeometrySize = 1,
-                    Focusable = true,
-                    ForceCursor = true,
-                    Tag = graphCoordinates,
-                    //The Area Under the Graph
-                    Fill = System.Windows.Media.Brushes.Transparent,
-
-
-                },
-
-
                 new ColumnSeries
                 {
                     Title = "",
                     Values = new ChartValues<decimal> { Convert.ToInt64(graphCoordinates.Values.Max()) },
                     Fill = System.Windows.Media.Brushes.Transparent,
-                },   
-        };
+                },
+            };
 
+            cartesianChart1.Series.Add(graphLine);
 
-
-            // Adding Horizontal and Vertical Seperator to Chart
-            cartesianChart1.AxisX.Clear();
-            cartesianChart1.AxisY.Clear();
-            cartesianChart1.AxisX.Add(new Axis
-            {
-                IsMerged = true,
-                Separator = new Separator
-                {                
-                    StrokeThickness = 2,
-                    StrokeDashArray = new System.Windows.Media.DoubleCollection(new double[] { 1 }),
-                    Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(64, 79, 86))
-                }
-            });
-            cartesianChart1.AxisY.Add(new Axis
-            {
-                IsMerged = true,
-                Separator = new Separator
-                {
-                    StrokeThickness = 2,
-                    StrokeDashArray = new System.Windows.Media.DoubleCollection(new double[] { 1 }),
-                    Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(64, 79, 86))
-                }
-            });
-
-
-            cartesianChart1.DisableAnimations = true;
-            cartesianChart1.Zoom = ZoomingOptions.X;
-            cartesianChart1.LegendLocation = LegendLocation.Top;
-           
         }
 
+
+        public void DrawGraphOnCanvas_PositiveDomain(Visitable.Node.Component root, int length)
+        {
+            Dictionary<decimal, decimal> graphCoordinates = calculator.TraverseForCalculate_PositiveDomain(root, length);
+
+            var Function_Values = new ChartValues<ObservablePoint>();
+
+            //Add the coordinate of function to Chart value of Graph in order to show them
+            foreach (KeyValuePair<decimal, decimal> coordinate in graphCoordinates)
+            {
+                Function_Values.Add(new ObservablePoint(Convert.ToDouble(coordinate.Key), Convert.ToDouble(coordinate.Value)));
+
+            }
+            var graphLine = new LineSeries
+            {
+                Title = $"{root.InFixFormula}",
+                Values = Function_Values,
+                StrokeThickness = 3,
+                PointGeometrySize = 1,
+                Focusable = true,
+                ForceCursor = true,
+                Tag = graphCoordinates,
+                //The Area Under the Graph
+                Fill = System.Windows.Media.Brushes.Transparent,
+            };
+            var Line = new LiveCharts.SeriesCollection()
+            {
+                new ColumnSeries
+                {
+                    Title = "",
+                    Values = new ChartValues<decimal> { Convert.ToInt64(graphCoordinates.Values.Max()) },
+                    Fill = System.Windows.Media.Brushes.Transparent,
+                },
+            };
+
+            cartesianChart1.Series.Add(graphLine);
+
+        }
         public void GenerateBinaryGraph(string input)
         {
-            string text = @"graph calculus {" + "\nnode[fontname = \"Arial\"]\n" + input + "\n"+ "}";
-            
+            string text = @"graph calculus {" + "\nnode[fontname = \"Arial\"]\n" + input + "\n" + "}";
+
             using (FileStream fs = new FileStream("ab.dot", FileMode.Create, FileAccess.Write))
             {
                 using (StreamWriter sw = new StreamWriter(fs))
@@ -183,8 +214,6 @@ namespace CPP
             {
                 MessageBox.Show("File was not created successfullu");
             }
-            
-
         }
 
         private void CanvasPainting()
@@ -219,7 +248,32 @@ namespace CPP
             //g.DrawLines(brush,point.ToArray());
         }
 
-         
+        private void button1_Click(object sender, EventArgs e)
+        {
+            derivationCalculator.TraverseForCalculate(rootOfBinaryTree);
+            derivation = rootOfBinaryTree.Derivation;
+            infixGenerator.TraverseForCalculate(derivation);
+            GenerateBinaryGraph(derivation.GraphVizFormula);
+
+            if (derivation.InFixFormula.Contains("Exp") || LInfixFourmula.Text.Contains("!"))
+            {
+                //To avoid OverFlow Exception
+                DrawGraphOnCanvas(derivation, 10);
+            }else if (LInfixFourmula.Text.Contains("Ln"))
+            {
+                DrawGraphOnCanvas_PositiveDomain(derivation, 1000);
+
+            }
+            else
+            {
+                DrawGraphOnCanvas(derivation, 1000);
+            }
+        }
+
+        private void BtnClearPlot_Click(object sender, EventArgs e)
+        {
+            cartesianChart1.Series.Clear();
+        }
     }
 
 

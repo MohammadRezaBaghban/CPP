@@ -38,6 +38,7 @@ namespace CPP
         public void EraseParsedList()
         {
             inputs.Clear();
+            nodeCounter = 0;
             bt._root = null;
         }
         public string ParseInputRecursively(ref string expression)
@@ -161,7 +162,6 @@ namespace CPP
             CompositeNode root = bt._root;
             for (int i = 0; i <= input.Count - 1; i++)
             {
-                nodeCounter++;
                 switch (input[i])
                 {
                    
@@ -174,7 +174,7 @@ namespace CPP
                         root = bt.InsertCompositeNode(root, new SubstracOperator());
                         break;
                     case "*":
-                        root = bt.InsertCompositeNode(root, new MultipicationOperator());
+                        root = bt.InsertCompositeNode(root, new MultiplicationOperator());
                         break;
                     case "/":
                         root = bt.InsertCompositeNode(root, new DivisionOperator());

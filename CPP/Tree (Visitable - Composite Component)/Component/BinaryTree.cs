@@ -17,21 +17,19 @@ namespace CPP.Visitable.Node
         public BinaryTree()
         {
             _root = null;
-        }
+        }   
 
-        public CompositeNode CompositeNode
+        public CompositeNode InsertNode(CompositeNode root, Component node)
         {
-            get => default;
-            set
+            SingleNode singleNode = node as SingleNode;
+            if (singleNode != null)
             {
+                return InsertSingleNode(root, singleNode);
             }
-        }
-
-        public SingleNode SingleNode
-        {
-            get => default;
-            set
+            else
             {
+                CompositeNode composite = node as CompositeNode;
+                return InsertCompositeNode(root, composite);
             }
         }
 
@@ -53,12 +51,7 @@ namespace CPP.Visitable.Node
                     {
                         root.LeftNode = newNode;
                         root.LeftNode.Parent = root;
-                    }
-                    else if (root.RightNode == null)
-                    {
-                        root.RightNode = newNode;
-                        root.RightNode.Parent = root;
-                    }
+                    }                    
                     else
                     {
                         if (root.Parent != null)
@@ -70,24 +63,51 @@ namespace CPP.Visitable.Node
                 }
                 else
                 {
-                    if (root.RightNode == null)
-                    {
-                        root.RightNode = newNode;
-                        root.RightNode.Parent = root;
-                    }        
-                    else if (root.LeftNode == null)
-                    {
-                        root.LeftNode = newNode;
-                        root.LeftNode.Parent = root;
+                    //Because of importance of Numerator and denominator in Division
+                    //Because of importance of base and power in PowerOperator
+                    if (root is DivisionOperator || root is PowerOperator)
+                    {                       
+                        if (root.LeftNode == null)
+                        {
+                            root.LeftNode = newNode;
+                            root.LeftNode.Parent = root;
+                        }
+                        else if (root.RightNode == null)
+                        {
+                            root.RightNode = newNode;
+                            root.RightNode.Parent = root;
+                        }
+                        {
+                            if (root.Parent != null)
+                            {
+                                return InsertCompositeNode(root.Parent, newNode);
+                            }
+
+                        }
                     }
                     else
-                    {
-                        if (root.Parent != null)
+                    {//For the sake of having more balanced binary graph
+                        if (root.RightNode == null)
                         {
-                            return InsertCompositeNode(root.Parent, newNode);
+                            root.RightNode = newNode;
+                            root.RightNode.Parent = root;
                         }
+                        else if (root.LeftNode == null)
+                        {
+                            root.LeftNode = newNode;
+                            root.LeftNode.Parent = root;
+                        }
+                        else
+                        {
+                            if (root.Parent != null)
+                            {
+                                return InsertCompositeNode(root.Parent, newNode);
+                            }
 
+                        }
                     }
+
+                    
                 }
                 
                 
@@ -114,24 +134,51 @@ namespace CPP.Visitable.Node
                 }
                 else
                 {
-                    if (root.RightNode == null)
-                    {
-                        root.RightNode = newNode;
-                        root.RightNode.Parent = root;
-                    }
-                    else if (root.LeftNode == null)
-                    {
-                        root.LeftNode = newNode;
-                        root.LeftNode.Parent = root;
 
+                    //Because of importance of Numerator and denominator in Division
+                    //Because of importance of base and power in PowerOperator
+                    if (root is DivisionOperator || root is PowerOperator)
+                    {
+                        if (root.LeftNode == null)
+                        {
+                            root.LeftNode = newNode;
+                            root.LeftNode.Parent = root;
+                        }
+                        else if (root.RightNode == null)
+                        {
+                            root.RightNode = newNode;
+                            root.RightNode.Parent = root;
+                        }
+                        {
+                            if (root.Parent != null)
+                            {
+                                return InsertCompositeNode(root.Parent, newNode);
+                            }
+
+                        }
                     }
                     else
                     {
-                        if (root.Parent != null)
+                        if (root.RightNode == null)
                         {
-                            return InsertCompositeNode(root.Parent, newNode);
+                            root.RightNode = newNode;
+                            root.RightNode.Parent = root;
+                        }
+                        else if (root.LeftNode == null)
+                        {
+                            root.LeftNode = newNode;
+                            root.LeftNode.Parent = root;
+
+                        }
+                        else
+                        {
+                            if (root.Parent != null)
+                            {
+                                return InsertCompositeNode(root.Parent, newNode);
+                            }
                         }
                     }
+                    
                 }
                 
                 return newNode;

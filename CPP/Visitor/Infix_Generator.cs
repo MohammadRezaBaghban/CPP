@@ -34,7 +34,7 @@ namespace CPP.Visitor
 
         public void Visit(SubstracOperator visitable) => visitable.InFixFormula =  visitable.LeftNode.InFixFormula + " - " + visitable.RightNode.InFixFormula;
 
-        public void Visit(MultipicationOperator visitable) => visitable.InFixFormula = "(" + visitable.LeftNode.InFixFormula + ") * (" + visitable.RightNode.InFixFormula + ")";
+        public void Visit(MultiplicationOperator visitable) => visitable.InFixFormula = "(" + visitable.LeftNode.InFixFormula + ") * (" + visitable.RightNode.InFixFormula + ")";
 
         public void Visit(DivisionOperator visitable) => visitable.InFixFormula = "(" + visitable.LeftNode.InFixFormula + ") / (" + visitable.RightNode.InFixFormula + ")";
 

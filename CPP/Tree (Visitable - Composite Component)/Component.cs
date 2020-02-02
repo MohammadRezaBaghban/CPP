@@ -11,7 +11,9 @@ namespace CPP.Visitable.Node
     {
         CompositeNode Parent { get; set; }
 
-        int NodeNumber { get; }
+        Component Derivation { get; set; }
+
+        int NodeNumber { get; set; }
 
         decimal Data { get; set; }
 

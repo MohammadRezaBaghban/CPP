@@ -34,18 +34,35 @@ namespace CPP.Visitor
 
         }
 
+        public Dictionary<decimal, decimal> TraverseForCalculate_PositiveDomain(IMathematicalOperation visitable, int lastX)
+        {
+            Dictionary<decimal, decimal> graphValues = new Dictionary<decimal, decimal>();
+
+            var MaximumX = lastX / 2;
+            var MinimumX = 1;
+
+            for (int current_X_value = MinimumX; current_X_value <= MaximumX; current_X_value++)
+            {
+                coordinateValue = current_X_value;
+                TraverseForCalculate(visitable);
+                graphValues.Add(current_X_value, visitable.Data);
+            }
+
+            coordinateValue = 10;
+            return graphValues;
+
+        }
+
 
         public void TraverseForCalculate(IMathematicalOperation visitable)
         {
-            if (visitable is SingleNode)
-            {
-                SingleNode single = visitable as SingleNode;
-
+            SingleNode single = visitable as SingleNode;
+            if (single != null)
+            {             
                 if (single.IsVariable)
                 {
                     single.Data = coordinateValue;
                 }
-
             }
             else
             {
@@ -69,7 +86,7 @@ namespace CPP.Visitor
 
         public void Visit(SubstracOperator visitable) => visitable.Data = visitable.LeftNode.Data - visitable.RightNode.Data;
 
-        public void Visit(MultipicationOperator visitable) => visitable.Data = visitable.LeftNode.Data * visitable.RightNode.Data;
+        public void Visit(MultiplicationOperator visitable) => visitable.Data = visitable.LeftNode.Data * visitable.RightNode.Data;
 
         public void Visit(DivisionOperator visitable)
         {
