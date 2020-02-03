@@ -13,47 +13,60 @@ namespace CPP.Visitable.Node
     public class SingleNode : Component
     {
 
+        //Fields
         public bool IsVariable;
-        public int NodeNumber { get; }
-        public decimal Data { get; set; }
-        public string InFixFormula { get; set; }
+        public override string GraphVizFormula{
+            get{                
+                return $"node{NodeNumber} [ label = \"{Symbol}\" ]";
+            }           
+        }
 
-        public CompositeNode Parent { get; set; }
-        public string Symbol { get; set; }
-
-        public string GraphVizFormula => $"node{NodeNumber} [ label = \"{Symbol}\" ]";
-
-        public SingleNode(CompositeNode parent)
+        //Constructors
+        public SingleNode(Component parent)
         {
             Parent = parent;
             IsVariable = true;
             InFixFormula = "x";
             Symbol = InFixFormula;
-            NodeNumber = FormulaParse.nodeCounter;
+            NodeNumber = ++FormulaParse.nodeCounter;
         }
-
-        public SingleNode(CompositeNode parent, decimal data)
+        public SingleNode(Component parent, decimal data)
         {
-
             Parent = parent;
             Data = data;
             InFixFormula = $"{data}";
-            Symbol = InFixFormula;
-            NodeNumber = FormulaParse.nodeCounter;
+            Symbol = InFixFormula;            
+            NodeNumber = ++FormulaParse.nodeCounter;
 
         }
 
-        public void Evaluate(IVisitor visitor)
+
+        //Methods
+        public override void Evaluate(IVisitor visitor)
         {
+
+        }
+
+        public void Derivative(IVisitor visitor)
+        {
+            
         }
 
         public override string ToString()
         {
-            return $"Object Type: {this.GetType().Name}"
-                   + $" | Data: {this.Data.ToString()}"
-                   + $" | Parent: {(this.Parent.GetType().Name)??"Null"}"
-                   ;
+            if (IsVariable)
+            {
+                return $"Variable X";
+            }
+            else
+            {
+                return $"Number {Data}";
+            }
+                          
         }
 
+        
+
+       
     }
 }

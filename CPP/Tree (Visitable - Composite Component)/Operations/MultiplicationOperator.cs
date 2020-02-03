@@ -8,9 +8,9 @@ using CPP.Visitor;
 
 namespace CPP.Operations
 {
-    public class MultipicationOperator : Operation
+    public class MultiplicationOperator : Operation
     {
-        public MultipicationOperator()
+        public MultiplicationOperator()
         {
             Symbol = "*";
         }

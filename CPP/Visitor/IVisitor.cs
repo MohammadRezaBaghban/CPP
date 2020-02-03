@@ -11,13 +11,13 @@ namespace CPP.Visitor
 {
     public interface IVisitor
     {
-        void TraverseForCalculate(IMathematicalOperation visitable);
+        void Calculate(IMathematicalOperation visitable);
 
         void Visit(AddOperator visitable);
 
-        void Visit(SubstracOperator visitable);
+        void Visit(SubstractOperator visitable);
 
-        void Visit(MultipicationOperator visitable);
+        void Visit(MultiplicationOperator visitable);
 
         void Visit(DivisionOperator visitable);
 

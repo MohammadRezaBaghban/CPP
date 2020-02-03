@@ -38,6 +38,7 @@ namespace CPP
         public void EraseParsedList()
         {
             inputs.Clear();
+            nodeCounter = 0;
             bt._root = null;
         }
         public string ParseInputRecursively(ref string expression)
@@ -158,77 +159,76 @@ namespace CPP
 
         public CompositeNode Convert_ParsedList_To_BinaryTree(List<string> input)
         {
-            CompositeNode root = bt._root;
+            Component root = bt._root;
             for (int i = 0; i <= input.Count - 1; i++)
             {
-                nodeCounter++;
                 switch (input[i])
                 {
                    
 
                     //Operators
                     case "+":
-                        root = bt.InsertCompositeNode(root, new AddOperator());
+                        root = bt.InsertNode(root, new AddOperator());
                         break;
                     case "-":
-                        root = bt.InsertCompositeNode(root, new SubstracOperator());
+                        root = bt.InsertNode(root, new SubstractOperator());
                         break;
                     case "*":
-                        root = bt.InsertCompositeNode(root, new MultipicationOperator());
+                        root = bt.InsertNode(root, new MultiplicationOperator());
                         break;
                     case "/":
-                        root = bt.InsertCompositeNode(root, new DivisionOperator());
+                        root = bt.InsertNode(root, new DivisionOperator());
                         break;
                     case "^":
-                        root = bt.InsertCompositeNode(root, new PowerOperator());
+                        root = bt.InsertNode(root, new PowerOperator());
                         break;
                         
 
                     //Functions
                     case "s":
                     case "S":
-                        root = bt.InsertCompositeNode(root, new SinFunc());
+                        root = bt.InsertNode(root, new SinFunc());
                         break;
                     case "c":
                     case "C":
-                        root = bt.InsertCompositeNode(root, new CosFunc());
+                        root = bt.InsertNode(root, new CosFunc());
                         break;
                     case "t":
                     case "T":
-                        root = bt.InsertCompositeNode(root, new TanFunc());
+                        root = bt.InsertNode(root, new TanFunc());
                         break;
                     case "e":
                     case "E":
-                        root = bt.InsertCompositeNode(root, new ExponentialFun());
+                        root = bt.InsertNode(root, new ExponentialFun());
                         break;
                     case "L":
                     case "l":
-                        root = bt.InsertCompositeNode(root, new LogarithmFunc());
+                        root = bt.InsertNode(root, new LogarithmFunc());
                         break;
                     case "!":
-                        root = bt.InsertCompositeNode(root, new FactorialFunc());
+                        root = bt.InsertNode(root, new FactorialFunc());
                         break;
                     
                     //Variables                    
                     case "X":
                     case "x":
-                        bt.InsertSingleNode(root, new SingleNode(root));
+                        bt.InsertNode(root, new SingleNode(root));
                         break;
 
                     // Values
                     case "p":
                     case "P":
-                        bt.InsertSingleNode(root, new SingleNode(root, 3.14m));
+                        bt.InsertNode(root, new SingleNode(root, 3.14m));
                         break;
 
                     //Real and Natural Numbers
                     case "r":
                     case "n":
-                        root = bt.InsertSingleNode(root, new SingleNode(root, Convert.ToDecimal(input[++i])));
+                        root = bt.InsertNode(root, new SingleNode(root, Convert.ToDecimal(input[++i])));
                         break;
 
                     default:
-                        bt.InsertSingleNode(root, new SingleNode(root, Convert.ToDecimal(input[i])));
+                        bt.InsertNode(root, new SingleNode(root, Convert.ToDecimal(input[i])));
                         break;
                 }
 

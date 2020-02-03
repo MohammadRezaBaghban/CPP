@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.Btn_NewtonDerivation = new System.Windows.Forms.Button();
+            this.BtnClearPlot = new System.Windows.Forms.Button();
+            this.Btn_Analytical_Derivation = new System.Windows.Forms.Button();
             this.LInfixFourmula = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.BtnParseRecursively = new System.Windows.Forms.Button();
@@ -43,6 +46,9 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.panel1.Controls.Add(this.Btn_NewtonDerivation);
+            this.panel1.Controls.Add(this.BtnClearPlot);
+            this.panel1.Controls.Add(this.Btn_Analytical_Derivation);
             this.panel1.Controls.Add(this.LInfixFourmula);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.BtnParseRecursively);
@@ -51,8 +57,38 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1318, 137);
+            this.panel1.Size = new System.Drawing.Size(1318, 192);
             this.panel1.TabIndex = 0;
+            // 
+            // Btn_NewtonDerivation
+            // 
+            this.Btn_NewtonDerivation.Location = new System.Drawing.Point(849, 75);
+            this.Btn_NewtonDerivation.Name = "Btn_NewtonDerivation";
+            this.Btn_NewtonDerivation.Size = new System.Drawing.Size(244, 97);
+            this.Btn_NewtonDerivation.TabIndex = 15;
+            this.Btn_NewtonDerivation.Text = "Newton Diff Derivation";
+            this.Btn_NewtonDerivation.UseVisualStyleBackColor = true;
+            this.Btn_NewtonDerivation.Click += new System.EventHandler(this.Btn_NewtonDerivation_Click);
+            // 
+            // BtnClearPlot
+            // 
+            this.BtnClearPlot.Location = new System.Drawing.Point(1099, 14);
+            this.BtnClearPlot.Name = "BtnClearPlot";
+            this.BtnClearPlot.Size = new System.Drawing.Size(194, 57);
+            this.BtnClearPlot.TabIndex = 14;
+            this.BtnClearPlot.Text = "Clear Plot";
+            this.BtnClearPlot.UseVisualStyleBackColor = true;
+            this.BtnClearPlot.Click += new System.EventHandler(this.BtnClearPlot_Click);
+            // 
+            // Btn_Analytical_Derivation
+            // 
+            this.Btn_Analytical_Derivation.Location = new System.Drawing.Point(1099, 75);
+            this.Btn_Analytical_Derivation.Name = "Btn_Analytical_Derivation";
+            this.Btn_Analytical_Derivation.Size = new System.Drawing.Size(194, 97);
+            this.Btn_Analytical_Derivation.TabIndex = 13;
+            this.Btn_Analytical_Derivation.Text = "Analytical Derivation";
+            this.Btn_Analytical_Derivation.UseVisualStyleBackColor = true;
+            this.Btn_Analytical_Derivation.Click += new System.EventHandler(this.Btn_Analytical_Derivation_Click);
             // 
             // LInfixFourmula
             // 
@@ -73,9 +109,9 @@
             // 
             // BtnParseRecursively
             // 
-            this.BtnParseRecursively.Location = new System.Drawing.Point(854, 12);
+            this.BtnParseRecursively.Location = new System.Drawing.Point(849, 12);
             this.BtnParseRecursively.Name = "BtnParseRecursively";
-            this.BtnParseRecursively.Size = new System.Drawing.Size(137, 57);
+            this.BtnParseRecursively.Size = new System.Drawing.Size(244, 57);
             this.BtnParseRecursively.TabIndex = 10;
             this.BtnParseRecursively.Text = "Parse Recursively";
             this.BtnParseRecursively.UseVisualStyleBackColor = true;
@@ -106,18 +142,18 @@
             this.cartesianChart1.Cursor = System.Windows.Forms.Cursors.Cross;
             this.cartesianChart1.Dock = System.Windows.Forms.DockStyle.Left;
             this.cartesianChart1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.cartesianChart1.Location = new System.Drawing.Point(0, 137);
+            this.cartesianChart1.Location = new System.Drawing.Point(0, 192);
             this.cartesianChart1.Name = "cartesianChart1";
-            this.cartesianChart1.Size = new System.Drawing.Size(767, 564);
+            this.cartesianChart1.Size = new System.Drawing.Size(767, 604);
             this.cartesianChart1.TabIndex = 2;
             this.cartesianChart1.Text = "cartesianChart1";
             // 
             // PbBinaryGraph
             // 
             this.PbBinaryGraph.Dock = System.Windows.Forms.DockStyle.Right;
-            this.PbBinaryGraph.Location = new System.Drawing.Point(773, 137);
+            this.PbBinaryGraph.Location = new System.Drawing.Point(773, 192);
             this.PbBinaryGraph.Name = "PbBinaryGraph";
-            this.PbBinaryGraph.Size = new System.Drawing.Size(545, 564);
+            this.PbBinaryGraph.Size = new System.Drawing.Size(545, 604);
             this.PbBinaryGraph.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.PbBinaryGraph.TabIndex = 3;
             this.PbBinaryGraph.TabStop = false;
@@ -126,7 +162,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 38F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1318, 701);
+            this.ClientSize = new System.Drawing.Size(1318, 796);
             this.Controls.Add(this.PbBinaryGraph);
             this.Controls.Add(this.cartesianChart1);
             this.Controls.Add(this.panel1);
@@ -151,6 +187,9 @@
         private System.Windows.Forms.Label label1;
         private LiveCharts.WinForms.CartesianChart cartesianChart1;
         private System.Windows.Forms.PictureBox PbBinaryGraph;
+        private System.Windows.Forms.Button Btn_Analytical_Derivation;
+        private System.Windows.Forms.Button BtnClearPlot;
+        private System.Windows.Forms.Button Btn_NewtonDerivation;
     }
 }
 

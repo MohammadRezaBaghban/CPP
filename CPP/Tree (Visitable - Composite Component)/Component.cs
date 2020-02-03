@@ -7,17 +7,31 @@ using CPP.Visitor;
 
 namespace CPP.Visitable.Node
 {
-    public interface Component : IMathematicalOperation
+    public abstract class Component : IMathematicalOperation,ICloneable
     {
-        CompositeNode Parent { get; set; }
+        public Component Parent;
 
-        int NodeNumber { get; }
+        public Component LeftNode;
 
-        decimal Data { get; set; }
+        public Component RightNode;
 
-        string InFixFormula { get; set; }
+        public Component Derivation { get; set; }
 
-        string GraphVizFormula { get; }
+        public int NodeNumber { get; set; } = ++FormulaParse.nodeCounter;
 
+        public decimal Data { get; set; }
+
+        public string Symbol { get; set; }
+
+        public string InFixFormula { get; set; }
+
+        public virtual string GraphVizFormula { get; }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
+
+        public abstract void Evaluate(IVisitor visitor);
     }
 }

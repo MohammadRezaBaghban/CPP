@@ -8,9 +8,9 @@ using CPP.Visitor;
 
 namespace CPP.Operations
 {
-    public class SubstracOperator : Operation
+    public class SubstractOperator : Operation
     {
-        public SubstracOperator()
+        public SubstractOperator()
         {
             Symbol = "-";
         }
