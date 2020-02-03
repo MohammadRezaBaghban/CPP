@@ -20,12 +20,15 @@ namespace CPP
         FormulaParse formulaParser;
         Calculator calculator;
         Derivative derivationCalculator;
+        List<int> selectedPonits;
+        int countOfSelectedPoints = 0;
 
         CompositeNode rootOfBinaryTree;
         Visitable.Node.Component derivation;
         public Form1()
         {
             InitializeComponent();
+            selectedPonits = new List<int>();
             formulaParser = new FormulaParse();
             infixGenerator = new Infix_Generator();
             calculator = new Calculator();
@@ -61,7 +64,7 @@ namespace CPP
             
         }
 
-
+        //Methods & Functions
         private void BtnParseRecursively_Click(object sender, EventArgs e)
         {
 
@@ -95,22 +98,30 @@ namespace CPP
 
         }
 
-        public CompositeNode parseTheFormula(string formula)
+        public void GenerateBinaryGraph(string input)
         {
-            if (formula.Length < 4)
+            string text = @"graph calculus {" + "\nnode[fontname = \"Arial\"]\n" + input + "\n" + "}";
+
+            using (FileStream fs = new FileStream("ab.dot", FileMode.Create, FileAccess.Write))
             {
-                MessageBox.Show("Please Enter a correct input");
-                TbPrefixFormula.Text = "";
-                return null;
+                using (StreamWriter sw = new StreamWriter(fs))
+                {
+                    sw.Write(text);
+                }
+            }
+
+            if (File.Exists("ab.dot"))
+            {
+                Process dot = new Process();
+                dot.StartInfo.FileName = "dot.exe";
+                dot.StartInfo.Arguments = "-Tpng -oab.png ab.dot";
+                dot.Start();
+                dot.WaitForExit();
+                PbBinaryGraph.ImageLocation = "ab.png";
             }
             else
             {
-                formulaParser.EraseParsedList();
-
-                formulaParser.ParseInputRecursively(ref formula);
-                var list = formulaParser.GetParsedList();
-
-                return formulaParser.Convert_ParsedList_To_BinaryTree(list);
+                MessageBox.Show("File was not created successfullu");
             }
         }
 
@@ -153,16 +164,8 @@ namespace CPP
 
         public void DrawGraphOnCanvas_PositiveDomain(Visitable.Node.Component root, int length)
         {
-            Dictionary<decimal, decimal> graphCoordinates = calculator.Calculate_PositiveDomain(root, length);
+            var Function_Values = CalculateGraphPoints(calculator.Calculate_PositiveDomain(root, length));
 
-            var Function_Values = new ChartValues<ObservablePoint>();
-
-            //Add the coordinate of function to Chart value of Graph in order to show them
-            foreach (KeyValuePair<decimal, decimal> coordinate in graphCoordinates)
-            {
-                Function_Values.Add(new ObservablePoint(Convert.ToDouble(coordinate.Key), Convert.ToDouble(coordinate.Value)));
-
-            }
             var graphLine = new LineSeries
             {
                 Title = $"{root.InFixFormula}",
@@ -171,81 +174,49 @@ namespace CPP
                 PointGeometrySize = 1,
                 Focusable = true,
                 ForceCursor = true,
-                Tag = graphCoordinates,
+                Tag = Function_Values,
                 //The Area Under the Graph
                 Fill = System.Windows.Media.Brushes.Transparent,
-            };
-            var Line = new LiveCharts.SeriesCollection()
-            {
-                new ColumnSeries
-                {
-                    Title = "",
-                    Values = new ChartValues<decimal> { Convert.ToInt64(graphCoordinates.Values.Max()) },
-                    Fill = System.Windows.Media.Brushes.Transparent,
-                },
-            };
+            };         
 
             cartesianChart1.Series.Add(graphLine);
 
         }
 
-        public void GenerateBinaryGraph(string input)
+        public CompositeNode parseTheFormula(string formula)
         {
-            string text = @"graph calculus {" + "\nnode[fontname = \"Arial\"]\n" + input + "\n" + "}";
-
-            using (FileStream fs = new FileStream("ab.dot", FileMode.Create, FileAccess.Write))
+            if (formula.Length < 4)
             {
-                using (StreamWriter sw = new StreamWriter(fs))
-                {
-                    sw.Write(text);
-                }
-            }
-
-            if (File.Exists("ab.dot"))
-            {
-                Process dot = new Process();
-                dot.StartInfo.FileName = "dot.exe";
-                dot.StartInfo.Arguments = "-Tpng -oab.png ab.dot";
-                dot.Start();
-                dot.WaitForExit();
-                PbBinaryGraph.ImageLocation = "ab.png";
+                MessageBox.Show("Please Enter a correct input");
+                TbPrefixFormula.Text = "";
+                return null;
             }
             else
             {
-                MessageBox.Show("File was not created successfullu");
+                formulaParser.EraseParsedList();
+
+                formulaParser.ParseInputRecursively(ref formula);
+                var list = formulaParser.GetParsedList();
+
+                return formulaParser.Convert_ParsedList_To_BinaryTree(list);
             }
         }
 
-        private void CanvasPainting()
+        public ChartValues<ObservablePoint> CalculateGraphPoints(Dictionary<decimal, decimal> values)
         {
-            // List<Point> point = new List<Point>();
-            //using (Pen dashed_pen = new Pen(Color.Black, 1))
-            //{
-            //    dashed_pen.DashStyle = DashStyle.Dash;  
-            //    //Mark the center of Canvas
-            //    g.FillEllipse(Brushes.Red, canvasCenterX-5, canvasCenterY-5, 10, 10);
-            //    // Horizantal Line
-            //    g.DrawLine(dashed_pen,0,canvasCenterY-1,canvasWidth,canvasCenterY-1);
-            //    //Vertical Line
-            //    g.DrawLine(dashed_pen, canvasCenterX, 0, canvasCenterX, canvasHeight);
-            //}
+            var Function_Values = new ChartValues<ObservablePoint>();
+            foreach (KeyValuePair<decimal, decimal> coordinate in values)
+            {
+                Function_Values.Add(new ObservablePoint(Convert.ToDouble(coordinate.Key), Convert.ToDouble(coordinate.Value)));
+            }
+            return Function_Values;
+        }
 
 
-            ////Scaling for the value between -1 and 1
-            //if ((coordinate.Value >= 0 && coordinate.Value < 1) ||
-            //    (coordinate.Value <= 0 && coordinate.Value > -1))
-            //{
-            //    point.Add(new Point(
-            //        Convert.ToInt32(coordinate.Key) + canvasCenterX,
-            //        (Convert.ToInt32(coordinate.Value * -100)) + canvasCenterY)
-            //        );
-            //}
-            //else
-            //{
-            //    point.Add(new Point(Convert.ToInt32(coordinate.Key) + canvasCenterX,
-            //    (Convert.ToInt32(-coordinate.Value)) + canvasCenterY));
-            //}
-            //g.DrawLines(brush,point.ToArray());
+        //Event Handlers
+        private void BtnClearPlot_Click(object sender, EventArgs e)
+        {
+            cartesianChart1.Series.Clear();
         }
 
         private void Btn_Analytical_Derivation_Click(object sender, EventArgs e)
@@ -274,28 +245,19 @@ namespace CPP
 
         private void Btn_NewtonDerivation_Click(object sender, EventArgs e)
         {
-            Dictionary<decimal, decimal> graphCoordinates;
+            var Function_Values = new ChartValues<ObservablePoint>();
 
             if (rootOfBinaryTree.InFixFormula.Contains("Exp") || rootOfBinaryTree.InFixFormula.Contains("!"))
             {
-                graphCoordinates = calculator.CalculateByNewton(rootOfBinaryTree, 10);
+                Function_Values = CalculateGraphPoints(calculator.CalculateByNewton(rootOfBinaryTree, 10));
             }
             else if (rootOfBinaryTree.InFixFormula.Contains("Ln"))
             {
-                graphCoordinates = calculator.CalculateByNewton_PositiveDomain(rootOfBinaryTree, 1000);
+                Function_Values = CalculateGraphPoints(calculator.CalculateByNewton_PositiveDomain(rootOfBinaryTree, 1000));
             }
             else
             {
-                graphCoordinates = calculator.CalculateByNewton(rootOfBinaryTree, 1000);
-            }
-
-            var Function_Values = new ChartValues<ObservablePoint>();
-
-            //Add the coordinate of function to Chart value of Graph in order to show them
-            foreach (KeyValuePair<decimal, decimal> coordinate in graphCoordinates)
-            {
-                Function_Values.Add(new ObservablePoint(Convert.ToDouble(coordinate.Key), Convert.ToDouble(coordinate.Value)));
-
+                Function_Values = CalculateGraphPoints((calculator.CalculateByNewton(rootOfBinaryTree, 1000)));
             }
 
             var graphLine = new LineSeries
@@ -306,7 +268,7 @@ namespace CPP
                 PointGeometrySize = 1,
                 Focusable = true,
                 ForceCursor = true,
-                Tag = graphCoordinates,
+                Tag = Function_Values,
                 //The Area Under the Graph
                 Fill = System.Windows.Media.Brushes.Transparent,
             };
@@ -314,9 +276,67 @@ namespace CPP
             cartesianChart1.Series.Add(graphLine);
         }     
 
-        private void BtnClearPlot_Click(object sender, EventArgs e)
+        private void BtnRiemannIntegral_Click(object sender, EventArgs e)
         {
-            cartesianChart1.Series.Clear();
+            if (rootOfBinaryTree == null)
+            {
+                MessageBox.Show("Please parse a valid function fisrt");
+            }
+            else
+            {
+                if (countOfSelectedPoints == 0)
+                {
+                    LblStartingPoint.Text = $"X1: ";
+                    LblEndingPoint.Text = $"X2: ";
+                    cartesianChart1.DataClick += cartesianChart1_DataClick;
+                    MessageBox.Show("Select two point from the graph");
+                }             
+            }
+        }
+
+        private void cartesianChart1_DataClick(object sender, ChartPoint chartPoint)
+        {
+            if(countOfSelectedPoints == 0)
+            {
+                selectedPonits.Add(Convert.ToInt32(chartPoint.X));
+                LblStartingPoint.Text = $"X1: {Convert.ToInt32(chartPoint.X)}";
+                countOfSelectedPoints++;
+            }else if(countOfSelectedPoints == 1)
+            {
+                selectedPonits.Add(Convert.ToInt32(chartPoint.X));
+                LblEndingPoint.Text = $"X2: {Convert.ToInt32(chartPoint.X)}";
+                countOfSelectedPoints++;
+            }
+
+            if (countOfSelectedPoints == 2)
+            {
+                cartesianChart1.DataClick -= cartesianChart1_DataClick;
+                var Function_Values = CalculateGraphPoints(calculator.CalculateByRange(rootOfBinaryTree, selectedPonits[0], selectedPonits[1]));
+
+                decimal areaUnderGraph = 0m;
+                foreach(var point in Function_Values)
+                {
+                    areaUnderGraph += Convert.ToDecimal(point.Y);
+                }
+
+                var graphLine = new LineSeries
+                {
+                    Title = $"Riemann Integral",
+                    Values = Function_Values,
+                    StrokeThickness = 3,
+                    PointGeometrySize = 1,
+                    Focusable = true,
+                    ForceCursor = true,
+                    Tag = Function_Values,                    
+                    //The Area Under the Graph
+                    AreaLimit = 0,
+                };
+                LblRiemannArea.Visible = true;
+                LblRiemannArea.Text = $"Area: {areaUnderGraph:F3}";
+                cartesianChart1.Series.Add(graphLine);
+                countOfSelectedPoints = 0;
+            }
+
         }
 
     }

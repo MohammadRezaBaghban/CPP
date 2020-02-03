@@ -34,6 +34,44 @@ namespace CPP.Visitor
 
         }
 
+        public Dictionary<decimal, decimal> Calculate_PositiveDomain(IMathematicalOperation visitable, int lastX)
+        {
+            Dictionary<decimal, decimal> graphValues = new Dictionary<decimal, decimal>();
+
+            var MaximumX = lastX / 2;
+            var MinimumX = 1;
+
+            for (int current_X_value = MinimumX; current_X_value <= MaximumX; current_X_value++)
+            {
+                coordinateValue = current_X_value;
+                Calculate(visitable);
+                graphValues.Add(current_X_value, visitable.Data);
+            }
+
+            coordinateValue = 10;
+            return graphValues;
+
+        }
+
+        public Dictionary<decimal, decimal> CalculateByRange(IMathematicalOperation visitable, int firstX,int lastX)
+        {
+            Dictionary<decimal, decimal> graphValues = new Dictionary<decimal, decimal>();
+
+            var MinimumX = firstX;
+            var MaximumX = lastX;
+
+            for (int current_X_value = MinimumX; current_X_value <= MaximumX; current_X_value++)
+            {
+                coordinateValue = current_X_value;
+                Calculate(visitable);
+                graphValues.Add(current_X_value, visitable.Data);
+            }
+
+            coordinateValue = 10;
+            return graphValues;
+
+        }
+
         public Dictionary<decimal, decimal> CalculateByNewton_PositiveDomain(IMathematicalOperation visitable, int lastX)
         {
             Dictionary<decimal, decimal> graphValues = new Dictionary<decimal, decimal>();
@@ -88,24 +126,6 @@ namespace CPP.Visitor
 
         }
 
-        public Dictionary<decimal, decimal> Calculate_PositiveDomain(IMathematicalOperation visitable, int lastX)
-        {
-            Dictionary<decimal, decimal> graphValues = new Dictionary<decimal, decimal>();
-
-            var MaximumX = lastX / 2;
-            var MinimumX = 1;
-
-            for (int current_X_value = MinimumX; current_X_value <= MaximumX; current_X_value++)
-            {
-                coordinateValue = current_X_value;
-                Calculate(visitable);
-                graphValues.Add(current_X_value, visitable.Data);
-            }
-
-            coordinateValue = 10;
-            return graphValues;
-
-        }
 
 
         public void Calculate(IMathematicalOperation visitable)
