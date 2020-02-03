@@ -15,16 +15,14 @@ namespace CPP.Visitable.Node
 
         //Fields
         public bool IsVariable;
-        public int NodeNumber { get; set;}
-        public decimal Data { get; set; }
-        public string Symbol { get; set; }
-        public string InFixFormula { get; set; }
-        public string GraphVizFormula => $"node{NodeNumber} [ label = \"{Symbol}\" ]";
-        public Component Derivation { get; set; }
-        public CompositeNode Parent { get; set; }
+        public override string GraphVizFormula{
+            get{                
+                return $"node{NodeNumber} [ label = \"{Symbol}\" ]";
+            }           
+        }
 
         //Constructors
-        public SingleNode(CompositeNode parent)
+        public SingleNode(Component parent)
         {
             Parent = parent;
             IsVariable = true;
@@ -32,7 +30,7 @@ namespace CPP.Visitable.Node
             Symbol = InFixFormula;
             NodeNumber = ++FormulaParse.nodeCounter;
         }
-        public SingleNode(CompositeNode parent, decimal data)
+        public SingleNode(Component parent, decimal data)
         {
             Parent = parent;
             Data = data;
@@ -44,14 +42,16 @@ namespace CPP.Visitable.Node
 
 
         //Methods
-        public void Evaluate(IVisitor visitor)
+        public override void Evaluate(IVisitor visitor)
         {
+
         }
+
         public void Derivative(IVisitor visitor)
         {
             
         }
-        public void IncreaseNodeNumber() =>  NodeNumber = ++FormulaParse.nodeCounter;
+
         public override string ToString()
         {
             if (IsVariable)
@@ -65,9 +65,8 @@ namespace CPP.Visitable.Node
                           
         }
 
-        public object Clone()
-        {
-            return this.MemberwiseClone();
-        }
+        
+
+       
     }
 }

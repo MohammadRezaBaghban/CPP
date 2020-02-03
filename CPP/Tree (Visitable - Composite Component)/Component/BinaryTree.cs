@@ -19,7 +19,7 @@ namespace CPP.Visitable.Node
             _root = null;
         }   
 
-        public CompositeNode InsertNode(CompositeNode root, Component node)
+        public Component InsertNode(Component root, Component node)
         {
             SingleNode singleNode = node as SingleNode;
             if (singleNode != null)
@@ -33,7 +33,7 @@ namespace CPP.Visitable.Node
             }
         }
 
-        public CompositeNode InsertCompositeNode(CompositeNode root, CompositeNode newNode)
+        public Component InsertCompositeNode(Component root, Component newNode)
         {
             if (root == null)
             {
@@ -56,7 +56,7 @@ namespace CPP.Visitable.Node
                     {
                         if (root.Parent != null)
                         {
-                            return InsertCompositeNode(root.Parent, newNode);
+                            return InsertNode(root.Parent, newNode);
                         }
 
                     }
@@ -80,7 +80,7 @@ namespace CPP.Visitable.Node
                         {
                             if (root.Parent != null)
                             {
-                                return InsertCompositeNode(root.Parent, newNode);
+                                return InsertNode(root.Parent, newNode);
                             }
 
                         }
@@ -101,7 +101,7 @@ namespace CPP.Visitable.Node
                         {
                             if (root.Parent != null)
                             {
-                                return InsertCompositeNode(root.Parent, newNode);
+                                return InsertNode(root.Parent, newNode);
                             }
 
                         }
@@ -128,7 +128,7 @@ namespace CPP.Visitable.Node
                     {
                         if (root.Parent != null)
                         {
-                            return InsertCompositeNode(root.Parent, newNode);
+                            return InsertNode(root.Parent, newNode);
                         }
                     }
                 }
@@ -152,7 +152,7 @@ namespace CPP.Visitable.Node
                         {
                             if (root.Parent != null)
                             {
-                                return InsertCompositeNode(root.Parent, newNode);
+                                return InsertNode(root.Parent, newNode);
                             }
 
                         }
@@ -174,7 +174,7 @@ namespace CPP.Visitable.Node
                         {
                             if (root.Parent != null)
                             {
-                                return InsertCompositeNode(root.Parent, newNode);
+                                return InsertNode(root.Parent, newNode);
                             }
                         }
                     }
@@ -185,7 +185,7 @@ namespace CPP.Visitable.Node
             }
         }
 
-        internal CompositeNode InsertSingleNode(CompositeNode root, SingleNode singleNode)
+        internal Component InsertSingleNode(Component root, SingleNode singleNode)
         {
             //Try to put the signle node on the left side of tree as much as possible
             if(root is Function)
@@ -201,7 +201,7 @@ namespace CPP.Visitable.Node
                     //If both left and right node were full, insert it to the parent
                     if (root.Parent != null)
                     {
-                        return InsertSingleNode(root.Parent, singleNode);
+                        return InsertNode(root.Parent, singleNode);
                     }
                     else
                     {
@@ -227,7 +227,7 @@ namespace CPP.Visitable.Node
                     //If both left and right node were full, insert it to the parent
                     if (root.Parent != null)
                     {
-                        return InsertSingleNode(root.Parent, singleNode);
+                        return InsertNode(root.Parent, singleNode);
                     }
                     else
                     {
@@ -237,6 +237,160 @@ namespace CPP.Visitable.Node
                 }
             }
             
+        }
+
+        public static void Simplify(ref Component visitable, ref Component root)
+        {
+            SingleNode single = visitable as SingleNode;
+            if (single != null)
+            {
+                if (!single.IsVariable)
+                {
+                    if (single.Data == 1)
+                    {
+                        if (root is MultiplicationOperator)
+                        {
+                            if (root.Parent == null)
+                            {
+                                if (root.LeftNode == visitable)
+                                {
+                                    root.RightNode.Parent = null;
+                                    root = root.RightNode;
+                                    visitable = null;
+                                }
+                                else
+                                {
+                                    root.LeftNode.Parent = null;
+                                    root = root.RightNode;
+                                    visitable = null;
+                                }
+                            }
+                            else
+                            {
+                                if (root.LeftNode == visitable)
+                                {
+                                    root.RightNode.Parent = root.Parent;
+                                    root = root.RightNode;
+                                    visitable = null;
+                                }
+                                else
+                                {
+                                    root.LeftNode.Parent = root.Parent;
+                                    root = root.LeftNode;
+                                    visitable = null;
+                                }
+                            }
+                        }
+
+                        if (root is PowerOperator)
+                        {
+                            if (root.Parent == null)
+                            {
+                                if (root.RightNode == visitable)
+                                {
+                                    root.LeftNode = null;
+                                    root = root.LeftNode;
+                                    visitable = null;
+                                }
+                                else
+                                {
+                                    root = visitable;
+                                    visitable.Parent = null;
+                                }
+                            }
+                            else
+                            {
+                                if (root.RightNode == visitable)
+                                {
+                                    root.LeftNode.Parent = root.Parent;
+                                    root = root.LeftNode;
+                                    visitable = null;
+                                }
+                                else
+                                {
+                                    visitable.Parent = root.Parent;
+                                    root = visitable;
+                                }
+                            }
+
+                        }
+                    }
+
+                    if (single.Data == 0)
+                    {
+                        if (root is MultiplicationOperator)
+                        {
+                            if (root.Parent == null)
+                            {
+                                root = visitable;
+                                visitable.Parent = null;
+                            }
+                            else
+                            {
+                                visitable.Parent = root.Parent;
+                                root = visitable;
+                            }
+                        }
+
+                        if (root is AddOperator || root is SubstractOperator)
+                        {
+                            if (root.Parent == null)
+                            {
+                                if (root.LeftNode == visitable)
+                                {
+                                    root.RightNode.Parent = null;
+                                    root = root.RightNode;
+                                    visitable = null;
+                                }
+                                else
+                                {
+                                    root.LeftNode.Parent = null;
+                                    root = root.LeftNode;
+                                    visitable = null;
+                                }
+                            }
+                            else
+                            {
+                                if (root.LeftNode == visitable)
+                                {
+                                    root.RightNode.Parent = root.Parent;
+                                    root = root.RightNode;
+                                    visitable = null;
+                                }
+                                else
+                                {
+                                    root.LeftNode.Parent = root.Parent;
+                                    root = root.LeftNode;
+                                    visitable = null;
+                                }
+                            }
+                        }
+
+
+                    }
+
+                }
+            }
+            else
+            {
+
+                if (visitable is Function)
+                {
+                    Simplify(ref visitable.LeftNode, ref visitable);
+                }
+                else
+                {
+                    if (visitable.LeftNode != null)
+                    {
+                        Simplify(ref visitable.LeftNode, ref visitable);
+                    }
+                    if (visitable.RightNode != null)
+                    {
+                        Simplify(ref visitable.RightNode, ref visitable);
+                    }
+
+                }
+            }
         }
     }
 }

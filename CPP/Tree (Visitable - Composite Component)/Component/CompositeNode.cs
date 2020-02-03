@@ -14,16 +14,9 @@ namespace CPP.Visitable.Node
     public abstract class CompositeNode : Component,ICloneable
     {
         //Fields
-        public IMathematicalOperation operatorType;
-        public Component LeftNode;
-        public Component RightNode;
-        
-        
-        public int NodeNumber { get; set; } = ++FormulaParse.nodeCounter;
-        public decimal Data { get; set; }
-        public string Symbol { get; set; }
-        public string InFixFormula { get; set; }
-        public string GraphVizFormula
+        public IMathematicalOperation operatorType;        
+                     
+        public override string GraphVizFormula
         {
             get
             {
@@ -41,17 +34,10 @@ namespace CPP.Visitable.Node
                 }
                 return temp;
             }
-        }
-        public Component Derivation { get; set; }
-
-        public CompositeNode Parent { get; set; }
-
-
-        
+        }     
 
         //Methods
-        public abstract bool OneInput();
-        public abstract void Evaluate(IVisitor c);
+        public abstract bool OneInput();        
 
         public override string ToString()
         {

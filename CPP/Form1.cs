@@ -248,11 +248,13 @@ namespace CPP
             //g.DrawLines(brush,point.ToArray());
         }
 
-
         private void Btn_Analytical_Derivation_Click(object sender, EventArgs e)
         {
             derivationCalculator.Calculate(rootOfBinaryTree);
             derivation = rootOfBinaryTree.Derivation;
+            BinaryTree.Simplify(ref derivation, ref derivation.Parent);
+            BinaryTree.Simplify(ref derivation, ref derivation.Parent);
+
             infixGenerator.Calculate(derivation);
             GenerateBinaryGraph(derivation.GraphVizFormula);
 

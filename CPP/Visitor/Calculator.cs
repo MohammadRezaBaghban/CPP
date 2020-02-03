@@ -138,7 +138,7 @@ namespace CPP.Visitor
 
         public void Visit(AddOperator visitable) => visitable.Data = visitable.LeftNode.Data + visitable.RightNode.Data;
 
-        public void Visit(SubstracOperator visitable) => visitable.Data = visitable.LeftNode.Data - visitable.RightNode.Data;
+        public void Visit(SubstractOperator visitable) => visitable.Data = visitable.LeftNode.Data - visitable.RightNode.Data;
 
         public void Visit(MultiplicationOperator visitable) => visitable.Data = visitable.LeftNode.Data * visitable.RightNode.Data;
 

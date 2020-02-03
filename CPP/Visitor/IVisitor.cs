@@ -15,7 +15,7 @@ namespace CPP.Visitor
 
         void Visit(AddOperator visitable);
 
-        void Visit(SubstracOperator visitable);
+        void Visit(SubstractOperator visitable);
 
         void Visit(MultiplicationOperator visitable);
 

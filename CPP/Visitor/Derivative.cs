@@ -26,7 +26,6 @@ namespace CPP.Visitor
             {
                 if (single.IsVariable)
                 {
-                    single.IncreaseNodeNumber();
                     single.Derivation = new SingleNode(null,1);
                 }
                 else
@@ -49,7 +48,7 @@ namespace CPP.Visitor
                     visitable.Evaluate(this);
                 }
             }
-        }
+        }      
 
         public void Visit(AddOperator visitable)
         {
@@ -64,9 +63,9 @@ namespace CPP.Visitor
             visitable.Derivation = derivation;
         }
 
-        public void Visit(SubstracOperator visitable)
+        public void Visit(SubstractOperator visitable)
         {
-            CompositeNode derivation = new SubstracOperator();
+            CompositeNode derivation = new SubstractOperator();
 
             Calculate(visitable.LeftNode);
             Calculate(visitable.RightNode);
@@ -112,7 +111,7 @@ namespace CPP.Visitor
             binaryTree.InsertNode(multiply2, visitable.RightNode);
             binaryTree.InsertNode(multiply2, visitable.LeftNode.Derivation);
 
-            var numerator = new SubstracOperator();
+            var numerator = new SubstractOperator();
             binaryTree.InsertNode(numerator, multiply1);
             binaryTree.InsertNode(numerator, multiply2);
 
@@ -134,7 +133,7 @@ namespace CPP.Visitor
             Calculate(visitable.RightNode);
 
 
-            var substraction = new SubstracOperator();
+            var substraction = new SubstractOperator();
             binaryTree.InsertNode(substraction,visitable.RightNode);
             binaryTree.InsertNode(substraction, new SingleNode(substraction,1));
 
@@ -168,6 +167,21 @@ namespace CPP.Visitor
             binaryTree.InsertNode(multiply1, visitable.LeftNode.Derivation);
 
             visitable.Derivation = multiply1;
+        }
+
+        public void Visit(LogarithmFunc visitable)
+        {
+            Calculate(visitable.LeftNode);
+
+            var division = new DivisionOperator();
+            binaryTree.InsertNode(division, new SingleNode(division, 1));
+            binaryTree.InsertNode(division, visitable.LeftNode);
+
+            var multiple = new MultiplicationOperator();
+            binaryTree.InsertNode(multiple, visitable.LeftNode.Derivation);
+            binaryTree.InsertNode(multiple, division);
+
+            visitable.Derivation = multiple;
         }
 
         public void Visit(SinFunc visitable)
@@ -226,19 +240,5 @@ namespace CPP.Visitor
             visitable.Derivation = multiple;
         }
 
-        public void Visit(LogarithmFunc visitable)
-        {
-            Calculate(visitable.LeftNode);
-
-            var division = new DivisionOperator();
-            binaryTree.InsertNode(division, new SingleNode(division, 1));
-            binaryTree.InsertNode(division, visitable.LeftNode);
-
-            var multiple = new MultiplicationOperator();
-            binaryTree.InsertNode(multiple, visitable.LeftNode.Derivation);
-            binaryTree.InsertNode(multiple, division);
-
-            visitable.Derivation = multiple;
-        }
     }
 }
