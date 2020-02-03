@@ -19,7 +19,7 @@ namespace CPP.Visitor
             binaryTree = bt;
         }
 
-        public void TraverseForCalculate(IMathematicalOperation visitable)
+        public void Calculate(IMathematicalOperation visitable)
         {
             SingleNode single = visitable as SingleNode;
             if (single != null)
@@ -39,13 +39,13 @@ namespace CPP.Visitor
                 CompositeNode compositeNode = visitable as CompositeNode;
                 if (compositeNode is Function)
                 {
-                    TraverseForCalculate(compositeNode.LeftNode);
+                    Calculate(compositeNode.LeftNode);
                     compositeNode.Evaluate(this);
                 }
                 else
                 {
-                    TraverseForCalculate(compositeNode.LeftNode);
-                    TraverseForCalculate(compositeNode.RightNode);
+                    Calculate(compositeNode.LeftNode);
+                    Calculate(compositeNode.RightNode);
                     visitable.Evaluate(this);
                 }
             }
@@ -55,8 +55,8 @@ namespace CPP.Visitor
         {
             var derivation = new AddOperator();
 
-            TraverseForCalculate(visitable.LeftNode);
-            TraverseForCalculate(visitable.RightNode);
+            Calculate(visitable.LeftNode);
+            Calculate(visitable.RightNode);
 
             binaryTree.InsertNode(derivation, visitable.LeftNode.Derivation);
             binaryTree.InsertNode(derivation, visitable.RightNode.Derivation);
@@ -68,8 +68,8 @@ namespace CPP.Visitor
         {
             CompositeNode derivation = new SubstracOperator();
 
-            TraverseForCalculate(visitable.LeftNode);
-            TraverseForCalculate(visitable.RightNode);
+            Calculate(visitable.LeftNode);
+            Calculate(visitable.RightNode);
 
             binaryTree.InsertNode(derivation, visitable.LeftNode.Derivation);
             binaryTree.InsertNode(derivation, visitable.RightNode.Derivation);
@@ -80,8 +80,8 @@ namespace CPP.Visitor
         public void Visit(MultiplicationOperator visitable)
         {
 
-            TraverseForCalculate(visitable.LeftNode);
-            TraverseForCalculate(visitable.RightNode);
+            Calculate(visitable.LeftNode);
+            Calculate(visitable.RightNode);
 
             var multiply1 = new MultiplicationOperator();
             binaryTree.InsertNode(multiply1, visitable.LeftNode);
@@ -100,8 +100,8 @@ namespace CPP.Visitor
 
         public void Visit(DivisionOperator visitable)
         {
-            TraverseForCalculate(visitable.LeftNode);
-            TraverseForCalculate(visitable.RightNode);
+            Calculate(visitable.LeftNode);
+            Calculate(visitable.RightNode);
 
 
             var multiply1 = new MultiplicationOperator();
@@ -130,8 +130,8 @@ namespace CPP.Visitor
 
         public void Visit(PowerOperator visitable)
         {
-            TraverseForCalculate(visitable.LeftNode);
-            TraverseForCalculate(visitable.RightNode);
+            Calculate(visitable.LeftNode);
+            Calculate(visitable.RightNode);
 
 
             var substraction = new SubstracOperator();
@@ -161,7 +161,7 @@ namespace CPP.Visitor
 
         public void Visit(ExponentialFun visitable)
         {
-            TraverseForCalculate(visitable.LeftNode);
+            Calculate(visitable.LeftNode);
 
             var multiply1 = new MultiplicationOperator();
             binaryTree.InsertNode(multiply1, visitable);
@@ -178,7 +178,7 @@ namespace CPP.Visitor
             binaryTree.InsertNode(cos, visitable.LeftNode);
             binaryTree.InsertNode(derivation, cos);
 
-            TraverseForCalculate(visitable.LeftNode);
+            Calculate(visitable.LeftNode);
             binaryTree.InsertNode(derivation, visitable.LeftNode.Derivation);
 
             visitable.Derivation = derivation;
@@ -187,7 +187,7 @@ namespace CPP.Visitor
 
         public void Visit(CosFunc visitable)
         {
-            TraverseForCalculate(visitable.LeftNode);
+            Calculate(visitable.LeftNode);
 
             CompositeNode sin = new SinFunc();
             binaryTree.InsertNode(sin, visitable.LeftNode);
@@ -205,7 +205,7 @@ namespace CPP.Visitor
 
         public void Visit(TanFunc visitable)
         {
-            TraverseForCalculate(visitable.LeftNode);
+            Calculate(visitable.LeftNode);
 
             var cos = new CosFunc();
             binaryTree.InsertNode(cos, visitable.LeftNode);
@@ -228,7 +228,7 @@ namespace CPP.Visitor
 
         public void Visit(LogarithmFunc visitable)
         {
-            TraverseForCalculate(visitable.LeftNode);
+            Calculate(visitable.LeftNode);
 
             var division = new DivisionOperator();
             binaryTree.InsertNode(division, new SingleNode(division, 1));

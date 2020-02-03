@@ -12,19 +12,19 @@ namespace CPP.Visitor
 {
     public class Infix_Generator : IVisitor
     {
-        public void TraverseForCalculate(IMathematicalOperation visitable)
+        public void Calculate(IMathematicalOperation visitable)
         {
            
             CompositeNode compositeNode = visitable as CompositeNode;
             if (compositeNode is Function)
             {
-                TraverseForCalculate(compositeNode.LeftNode);
+                Calculate(compositeNode.LeftNode);
                 compositeNode.Evaluate(this);
             }
             if(compositeNode is Operation)
             {
-                TraverseForCalculate(compositeNode.RightNode);
-                TraverseForCalculate(compositeNode.LeftNode);
+                Calculate(compositeNode.RightNode);
+                Calculate(compositeNode.LeftNode);
                 compositeNode.Evaluate(this);
             }
         }

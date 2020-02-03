@@ -11,7 +11,7 @@ namespace CPP.Visitor
 {
     public interface IVisitor
     {
-        void TraverseForCalculate(IMathematicalOperation visitable);
+        void Calculate(IMathematicalOperation visitable);
 
         void Visit(AddOperator visitable);
 

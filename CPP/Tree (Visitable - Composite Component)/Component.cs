@@ -7,7 +7,7 @@ using CPP.Visitor;
 
 namespace CPP.Visitable.Node
 {
-    public interface Component : IMathematicalOperation
+    public interface Component : IMathematicalOperation,ICloneable
     {
         CompositeNode Parent { get; set; }
 

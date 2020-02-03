@@ -64,5 +64,10 @@ namespace CPP.Visitable.Node
             }
                           
         }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }

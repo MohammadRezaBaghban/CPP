@@ -18,7 +18,7 @@ namespace CPP
     {
         Infix_Generator infixGenerator;
         FormulaParse formulaParser;
-        Calculate calculator;
+        Calculator calculator;
         Derivative derivationCalculator;
 
         CompositeNode rootOfBinaryTree;
@@ -28,7 +28,7 @@ namespace CPP
             InitializeComponent();
             formulaParser = new FormulaParse();
             infixGenerator = new Infix_Generator();
-            calculator = new Calculate();
+            calculator = new Calculator();
             derivationCalculator = new Derivative(new BinaryTree());
 
 
@@ -69,19 +69,19 @@ namespace CPP
 
             if (rootOfBinaryTree != null)
             {
-                infixGenerator.TraverseForCalculate(rootOfBinaryTree);
-                calculator.TraverseForCalculate(rootOfBinaryTree);
+                infixGenerator.Calculate(rootOfBinaryTree);
+                calculator.Calculate(rootOfBinaryTree);
                 GenerateBinaryGraph(rootOfBinaryTree.GraphVizFormula);
                 LInfixFourmula.Text = rootOfBinaryTree.InFixFormula + " = " + rootOfBinaryTree.Data.ToString();
 
-                if (LInfixFourmula.Text.Contains("Exp") ||
-                    LInfixFourmula.Text.Contains("!") 
+                if (rootOfBinaryTree.InFixFormula.Contains("Exp") ||
+                    rootOfBinaryTree.InFixFormula.Contains("!") 
                     )
                 {
                     // To avoid OverFlow Exception
                     DrawGraphOnCanvas(rootOfBinaryTree, 10);
                 }
-                else if (LInfixFourmula.Text.Contains("Ln"))
+                else if (rootOfBinaryTree.InFixFormula.Contains("Ln"))
                 {
                     DrawGraphOnCanvas_PositiveDomain(rootOfBinaryTree, 1000);
 
@@ -116,7 +116,7 @@ namespace CPP
 
         public void DrawGraphOnCanvas(Visitable.Node.Component root, int length)
         {
-            Dictionary<decimal, decimal> graphCoordinates = calculator.TraverseForCalculate(root, length);
+            Dictionary<decimal, decimal> graphCoordinates = calculator.Calculate(root, length);
 
             var Function_Values = new ChartValues<ObservablePoint>();
 
@@ -151,10 +151,9 @@ namespace CPP
 
         }
 
-
         public void DrawGraphOnCanvas_PositiveDomain(Visitable.Node.Component root, int length)
         {
-            Dictionary<decimal, decimal> graphCoordinates = calculator.TraverseForCalculate_PositiveDomain(root, length);
+            Dictionary<decimal, decimal> graphCoordinates = calculator.Calculate_PositiveDomain(root, length);
 
             var Function_Values = new ChartValues<ObservablePoint>();
 
@@ -189,6 +188,7 @@ namespace CPP
             cartesianChart1.Series.Add(graphLine);
 
         }
+
         public void GenerateBinaryGraph(string input)
         {
             string text = @"graph calculus {" + "\nnode[fontname = \"Arial\"]\n" + input + "\n" + "}";
@@ -248,21 +248,21 @@ namespace CPP
             //g.DrawLines(brush,point.ToArray());
         }
 
-        private void button1_Click(object sender, EventArgs e)
+
+        private void Btn_Analytical_Derivation_Click(object sender, EventArgs e)
         {
-            derivationCalculator.TraverseForCalculate(rootOfBinaryTree);
+            derivationCalculator.Calculate(rootOfBinaryTree);
             derivation = rootOfBinaryTree.Derivation;
-            infixGenerator.TraverseForCalculate(derivation);
+            infixGenerator.Calculate(derivation);
             GenerateBinaryGraph(derivation.GraphVizFormula);
 
-            if (derivation.InFixFormula.Contains("Exp") || LInfixFourmula.Text.Contains("!"))
+            if (derivation.InFixFormula.Contains("Exp") || derivation.InFixFormula.Contains("!"))
             {
                 //To avoid OverFlow Exception
                 DrawGraphOnCanvas(derivation, 10);
-            }else if (LInfixFourmula.Text.Contains("Ln"))
+            }else if (derivation.InFixFormula.Contains("Ln"))
             {
                 DrawGraphOnCanvas_PositiveDomain(derivation, 1000);
-
             }
             else
             {
@@ -270,10 +270,53 @@ namespace CPP
             }
         }
 
+        private void Btn_NewtonDerivation_Click(object sender, EventArgs e)
+        {
+            Dictionary<decimal, decimal> graphCoordinates;
+
+            if (rootOfBinaryTree.InFixFormula.Contains("Exp") || rootOfBinaryTree.InFixFormula.Contains("!"))
+            {
+                graphCoordinates = calculator.CalculateByNewton(rootOfBinaryTree, 10);
+            }
+            else if (rootOfBinaryTree.InFixFormula.Contains("Ln"))
+            {
+                graphCoordinates = calculator.CalculateByNewton_PositiveDomain(rootOfBinaryTree, 1000);
+            }
+            else
+            {
+                graphCoordinates = calculator.CalculateByNewton(rootOfBinaryTree, 1000);
+            }
+
+            var Function_Values = new ChartValues<ObservablePoint>();
+
+            //Add the coordinate of function to Chart value of Graph in order to show them
+            foreach (KeyValuePair<decimal, decimal> coordinate in graphCoordinates)
+            {
+                Function_Values.Add(new ObservablePoint(Convert.ToDouble(coordinate.Key), Convert.ToDouble(coordinate.Value)));
+
+            }
+
+            var graphLine = new LineSeries
+            {
+                Title = $"DerivationByNewton",
+                Values = Function_Values,
+                StrokeThickness = 3,
+                PointGeometrySize = 1,
+                Focusable = true,
+                ForceCursor = true,
+                Tag = graphCoordinates,
+                //The Area Under the Graph
+                Fill = System.Windows.Media.Brushes.Transparent,
+            };
+
+            cartesianChart1.Series.Add(graphLine);
+        }     
+
         private void BtnClearPlot_Click(object sender, EventArgs e)
         {
             cartesianChart1.Series.Clear();
         }
+
     }
 
 

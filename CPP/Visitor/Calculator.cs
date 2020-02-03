@@ -11,11 +11,11 @@ using CPP.Visitor;
 
 namespace CPP.Visitor
 {
-    class Calculate : IVisitor
+    class Calculator : IVisitor
     {
         decimal coordinateValue = 10;
 
-        public Dictionary<decimal, decimal> TraverseForCalculate(IMathematicalOperation visitable,int lastX)
+        public Dictionary<decimal, decimal> Calculate(IMathematicalOperation visitable,int lastX)
         {
             Dictionary<decimal, decimal> graphValues = new Dictionary<decimal, decimal>();
 
@@ -25,7 +25,7 @@ namespace CPP.Visitor
             for (int current_X_value = MinimumX; current_X_value <= MaximumX; current_X_value++)
             {                
                 coordinateValue = current_X_value;
-                TraverseForCalculate(visitable);
+                Calculate(visitable);
                 graphValues.Add(current_X_value,visitable.Data);
             }
 
@@ -34,7 +34,7 @@ namespace CPP.Visitor
 
         }
 
-        public Dictionary<decimal, decimal> TraverseForCalculate_PositiveDomain(IMathematicalOperation visitable, int lastX)
+        public Dictionary<decimal, decimal> CalculateByNewton_PositiveDomain(IMathematicalOperation visitable, int lastX)
         {
             Dictionary<decimal, decimal> graphValues = new Dictionary<decimal, decimal>();
 
@@ -44,7 +44,61 @@ namespace CPP.Visitor
             for (int current_X_value = MinimumX; current_X_value <= MaximumX; current_X_value++)
             {
                 coordinateValue = current_X_value;
-                TraverseForCalculate(visitable);
+                Calculate(visitable);
+                var fxValue = visitable.Data;
+
+                coordinateValue = current_X_value + 2;
+                Calculate(visitable);
+                var fxhValue = visitable.Data;
+
+                var newtonDiff = (fxhValue - fxValue) / 2;
+
+                graphValues.Add(current_X_value + 1, newtonDiff);
+            }
+
+            coordinateValue = 10;
+            return graphValues;
+
+        }
+        
+        public Dictionary<decimal, decimal> CalculateByNewton(IMathematicalOperation visitable, int lastX)
+        {
+            Dictionary<decimal, decimal> graphValues = new Dictionary<decimal, decimal>();
+
+            var MaximumX = lastX / 2;
+            var MinimumX = -MaximumX;
+
+            for (int current_X_value = MinimumX; current_X_value <= MaximumX; current_X_value++)
+            {
+                coordinateValue = current_X_value;
+                Calculate(visitable);
+                var fxValue = visitable.Data;
+
+                coordinateValue = current_X_value+2;
+                Calculate(visitable);
+                var fxhValue = visitable.Data;
+
+                var newtonDiff = (fxhValue - fxValue) / 2;
+
+                graphValues.Add(current_X_value+1, newtonDiff);
+            }
+
+            coordinateValue = 10;
+            return graphValues;
+
+        }
+
+        public Dictionary<decimal, decimal> Calculate_PositiveDomain(IMathematicalOperation visitable, int lastX)
+        {
+            Dictionary<decimal, decimal> graphValues = new Dictionary<decimal, decimal>();
+
+            var MaximumX = lastX / 2;
+            var MinimumX = 1;
+
+            for (int current_X_value = MinimumX; current_X_value <= MaximumX; current_X_value++)
+            {
+                coordinateValue = current_X_value;
+                Calculate(visitable);
                 graphValues.Add(current_X_value, visitable.Data);
             }
 
@@ -54,7 +108,7 @@ namespace CPP.Visitor
         }
 
 
-        public void TraverseForCalculate(IMathematicalOperation visitable)
+        public void Calculate(IMathematicalOperation visitable)
         {
             SingleNode single = visitable as SingleNode;
             if (single != null)
@@ -69,14 +123,14 @@ namespace CPP.Visitor
                 CompositeNode compositeNode = visitable as CompositeNode;
                 if (compositeNode is Function)
                 {
-                    TraverseForCalculate(compositeNode.LeftNode);
+                    Calculate(compositeNode.LeftNode);
                     compositeNode.Evaluate(this);
                 }
                 else
                 {
 
-                    TraverseForCalculate(compositeNode.LeftNode);
-                    TraverseForCalculate(compositeNode.RightNode);
+                    Calculate(compositeNode.LeftNode);
+                    Calculate(compositeNode.RightNode);
                     visitable.Evaluate(this);
                 }
             }

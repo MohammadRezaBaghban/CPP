@@ -11,7 +11,7 @@ using CPP.Visitor;
 namespace CPP.Visitable.Node
 {
     [DebuggerDisplay("{ToString()}")]
-    public abstract class CompositeNode : Component
+    public abstract class CompositeNode : Component,ICloneable
     {
         //Fields
         public IMathematicalOperation operatorType;
@@ -62,7 +62,9 @@ namespace CPP.Visitable.Node
                    + $" | LeftNode: {LeftNode.GetType().Name}";
         }
 
-
-        
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }
