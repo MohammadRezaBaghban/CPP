@@ -25,5 +25,4 @@ C:\Mrbh\University\Fontys\Curriculum\2nd Year\4th Block\CPP\CPP Repos\CPP\bin\De
 C:\Mrbh\University\Fontys\Curriculum\2nd Year\4th Block\CPP\CPP Repos\CPP\obj\Debug\CPP.csproj.CopyComplete
 C:\Mrbh\University\Fontys\Curriculum\2nd Year\4th Block\CPP\CPP Repos\CPP\obj\Debug\CPP.exe
 C:\Mrbh\University\Fontys\Curriculum\2nd Year\4th Block\CPP\CPP Repos\CPP\obj\Debug\CPP.pdb
-C:\Mrbh\University\Fontys\Curriculum\2nd Year\4th Block\CPP\CPP Repos\CPP\bin\Debug\CPP.exe.CodeAnalysisLog.xml
-C:\Mrbh\University\Fontys\Curriculum\2nd Year\4th Block\CPP\CPP Repos\CPP\bin\Debug\CPP.exe.lastcodeanalysissucceeded
+C:\Mrbh\University\Fontys\Curriculum\2nd Year\4th Block\CPP\CPP Repos\CPP\obj\Debug\CPP.csprojAssemblyReference.cache

@@ -1,6 +1,7 @@
 ﻿using CPP.Functions;
 using CPP.Operations;
 using CPP.Tree__Visitable___Composite_Component_.Functions;
+using CPP.Visitable.Node;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace CPP.Visitor
 {
     public interface IVisitor
     {
-        void Calculate(IMathematicalOperation visitable);
+        void Calculate(Component visitable);
 
         void Visit(AddOperator visitable);
 

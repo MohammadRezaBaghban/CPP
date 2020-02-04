@@ -12,7 +12,7 @@ namespace CPP.Tree__Visitable___Composite_Component_.Functions
     {
         public LogarithmFunc()
         {
-            Symbol = "Log";
+            Symbol = "Ln";
         }
 
         public override void Evaluate(IVisitor c)

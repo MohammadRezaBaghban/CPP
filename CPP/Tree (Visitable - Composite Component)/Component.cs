@@ -15,7 +15,7 @@ namespace CPP.Visitable.Node
 
         public Component RightNode;
 
-        public Component Derivation { get; set; }
+        public Component Derivation;
 
         public int NodeNumber { get; set; } = ++FormulaParse.nodeCounter;
 

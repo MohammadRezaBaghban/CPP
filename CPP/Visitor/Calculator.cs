@@ -13,9 +13,9 @@ namespace CPP.Visitor
 {
     class Calculator : IVisitor
     {
-        decimal coordinateValue = 10;
+        public decimal coordinateValue = 10;
 
-        public Dictionary<decimal, decimal> Calculate(IMathematicalOperation visitable,int lastX)
+        public Dictionary<decimal, decimal> Calculate(Component visitable,int lastX)
         {
             Dictionary<decimal, decimal> graphValues = new Dictionary<decimal, decimal>();
 
@@ -34,7 +34,7 @@ namespace CPP.Visitor
 
         }
 
-        public Dictionary<decimal, decimal> Calculate_PositiveDomain(IMathematicalOperation visitable, int lastX)
+        public Dictionary<decimal, decimal> Calculate_PositiveDomain(Component visitable, int lastX)
         {
             Dictionary<decimal, decimal> graphValues = new Dictionary<decimal, decimal>();
 
@@ -53,7 +53,7 @@ namespace CPP.Visitor
 
         }
 
-        public Dictionary<decimal, decimal> CalculateByRange(IMathematicalOperation visitable, int firstX,int lastX)
+        public Dictionary<decimal, decimal> CalculateByRange(Component visitable, int firstX,int lastX)
         {
             Dictionary<decimal, decimal> graphValues = new Dictionary<decimal, decimal>();
 
@@ -72,7 +72,7 @@ namespace CPP.Visitor
 
         }
 
-        public Dictionary<decimal, decimal> CalculateByNewton_PositiveDomain(IMathematicalOperation visitable, int lastX)
+        public Dictionary<decimal, decimal> CalculateByNewton_PositiveDomain(Component visitable, int lastX)
         {
             Dictionary<decimal, decimal> graphValues = new Dictionary<decimal, decimal>();
 
@@ -99,7 +99,7 @@ namespace CPP.Visitor
 
         }
         
-        public Dictionary<decimal, decimal> CalculateByNewton(IMathematicalOperation visitable, int lastX)
+        public Dictionary<decimal, decimal> CalculateByNewton(Component visitable, int lastX)
         {
             Dictionary<decimal, decimal> graphValues = new Dictionary<decimal, decimal>();
 
@@ -128,7 +128,7 @@ namespace CPP.Visitor
 
 
 
-        public void Calculate(IMathematicalOperation visitable)
+        public void Calculate(Component visitable)
         {
             SingleNode single = visitable as SingleNode;
             if (single != null)
@@ -155,6 +155,7 @@ namespace CPP.Visitor
                 }
             }
         }
+
 
         public void Visit(AddOperator visitable) => visitable.Data = visitable.LeftNode.Data + visitable.RightNode.Data;
 
