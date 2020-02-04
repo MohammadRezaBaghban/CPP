@@ -12,7 +12,7 @@ namespace CPP.Visitor
 {
     public class Infix_Generator : IVisitor
     {
-        public void Calculate(IMathematicalOperation visitable)
+        public void Calculate(Component visitable)
         {
            
             CompositeNode compositeNode = visitable as CompositeNode;

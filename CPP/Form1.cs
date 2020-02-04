@@ -32,7 +32,7 @@ namespace CPP
             formulaParser = new FormulaParse();
             infixGenerator = new Infix_Generator();
             calculator = new Calculator();
-            derivationCalculator = new Derivative(new BinaryTree());
+            derivationCalculator = new Derivative(new BinaryTree(),new Calculator());
 
 
             // Adding Horizontal and Vertical Seperator to Chart
@@ -74,8 +74,8 @@ namespace CPP
             {
                 infixGenerator.Calculate(rootOfBinaryTree);
                 calculator.Calculate(rootOfBinaryTree);
-                GenerateBinaryGraph(rootOfBinaryTree.GraphVizFormula);
-                LInfixFourmula.Text = rootOfBinaryTree.InFixFormula + " = " + rootOfBinaryTree.Data.ToString();
+                GenerateBinaryGraph(rootOfBinaryTree.GraphVizFormula,PbBinaryGraphRoot);
+                LInfixFourmula.Text = rootOfBinaryTree.InFixFormula + " = " + $"{rootOfBinaryTree.Data:F3}";
 
                 if (rootOfBinaryTree.InFixFormula.Contains("Exp") ||
                     rootOfBinaryTree.InFixFormula.Contains("!") 
@@ -86,19 +86,19 @@ namespace CPP
                 }
                 else if (rootOfBinaryTree.InFixFormula.Contains("Ln"))
                 {
-                    DrawGraphOnCanvas_PositiveDomain(rootOfBinaryTree, 1000);
+                    DrawGraphOnCanvas_PositiveDomain(rootOfBinaryTree, 200);
 
                 }
                 else
                 {
-                    DrawGraphOnCanvas(rootOfBinaryTree, 1000);
+                    DrawGraphOnCanvas(rootOfBinaryTree, 200);
                 }
 
             }
 
         }
 
-        public void GenerateBinaryGraph(string input)
+        public void GenerateBinaryGraph(string input,PictureBox pb)
         {
             string text = @"graph calculus {" + "\nnode[fontname = \"Arial\"]\n" + input + "\n" + "}";
 
@@ -117,7 +117,7 @@ namespace CPP
                 dot.StartInfo.Arguments = "-Tpng -oab.png ab.dot";
                 dot.Start();
                 dot.WaitForExit();
-                PbBinaryGraph.ImageLocation = "ab.png";
+                pb.ImageLocation = "ab.png";
             }
             else
             {
@@ -127,16 +127,8 @@ namespace CPP
 
         public void DrawGraphOnCanvas(Visitable.Node.Component root, int length)
         {
-            Dictionary<decimal, decimal> graphCoordinates = calculator.Calculate(root, length);
+            var Function_Values = CalculateGraphPoints(calculator.Calculate(root, length));
 
-            var Function_Values = new ChartValues<ObservablePoint>();
-
-            //Add the coordinate of function to Chart value of Graph in order to show them
-            foreach (KeyValuePair<decimal, decimal> coordinate in graphCoordinates)
-            {
-                Function_Values.Add(new ObservablePoint(Convert.ToDouble(coordinate.Key), Convert.ToDouble(coordinate.Value)));
-
-            }
             var graphLine = new LineSeries{
                 Title = $"{root.InFixFormula}",
                 Values = Function_Values,
@@ -144,20 +136,10 @@ namespace CPP
                 PointGeometrySize = 1,
                 Focusable = true,
                 ForceCursor = true,
-                Tag = graphCoordinates,
+                Tag = Function_Values,
                 //The Area Under the Graph
                 Fill = System.Windows.Media.Brushes.Transparent,
             };
-            var Line = new LiveCharts.SeriesCollection()
-            {
-                new ColumnSeries
-                {
-                    Title = "",
-                    Values = new ChartValues<decimal> { Convert.ToInt64(graphCoordinates.Values.Max()) },
-                    Fill = System.Windows.Media.Brushes.Transparent,
-                },
-            };
-
             cartesianChart1.Series.Add(graphLine);
 
         }
@@ -227,7 +209,7 @@ namespace CPP
             BinaryTree.Simplify(ref derivation, ref derivation.Parent);
 
             infixGenerator.Calculate(derivation);
-            GenerateBinaryGraph(derivation.GraphVizFormula);
+            GenerateBinaryGraph(derivation.GraphVizFormula,PbBinaryGraphSecondary);
 
             if (derivation.InFixFormula.Contains("Exp") || derivation.InFixFormula.Contains("!"))
             {
@@ -235,11 +217,11 @@ namespace CPP
                 DrawGraphOnCanvas(derivation, 10);
             }else if (derivation.InFixFormula.Contains("Ln"))
             {
-                DrawGraphOnCanvas_PositiveDomain(derivation, 1000);
+                DrawGraphOnCanvas_PositiveDomain(derivation, 200);
             }
             else
             {
-                DrawGraphOnCanvas(derivation, 1000);
+                DrawGraphOnCanvas(derivation, 200);
             }
         }
 
@@ -253,11 +235,11 @@ namespace CPP
             }
             else if (rootOfBinaryTree.InFixFormula.Contains("Ln"))
             {
-                Function_Values = CalculateGraphPoints(calculator.CalculateByNewton_PositiveDomain(rootOfBinaryTree, 1000));
+                Function_Values = CalculateGraphPoints(calculator.CalculateByNewton_PositiveDomain(rootOfBinaryTree, 200));
             }
             else
             {
-                Function_Values = CalculateGraphPoints((calculator.CalculateByNewton(rootOfBinaryTree, 1000)));
+                Function_Values = CalculateGraphPoints((calculator.CalculateByNewton(rootOfBinaryTree, 200)));
             }
 
             var graphLine = new LineSeries
@@ -339,6 +321,56 @@ namespace CPP
 
         }
 
+        private void BtnMaclaurinSeries_Click(object sender, EventArgs e)
+        {
+            if (rootOfBinaryTree == null)
+            {
+                MessageBox.Show("Please parse a valid function fisrt");
+            }
+            else
+            {
+                var maclaurinFunctions = derivationCalculator.MaclaurinSeries(rootOfBinaryTree);
+
+                List<ChartValues<ObservablePoint>> listOfcharValues = new List<ChartValues<ObservablePoint>>();
+                for (int i = 0; i < 9; i++)
+                {
+                    if (maclaurinFunctions[i].GraphVizFormula.Contains("Exp") || maclaurinFunctions[i].GraphVizFormula.Contains("!"))
+                    {
+                        //To avoid OverFlow Exception
+                        listOfcharValues.Add(CalculateGraphPoints(calculator.Calculate(maclaurinFunctions[i], 10)));
+                    }
+                    else if (maclaurinFunctions[i].GraphVizFormula.Contains("Ln"))
+                    {
+                        listOfcharValues.Add(CalculateGraphPoints(calculator.Calculate_PositiveDomain(maclaurinFunctions[i], 200)));
+                    }
+                    else
+                    {
+                        listOfcharValues.Add(CalculateGraphPoints(calculator.Calculate(maclaurinFunctions[i], 200)));
+                    }
+                }
+
+                List<LineSeries> lineSeries = new List<LineSeries>();
+                for (int i = 0; i < 9; i++)
+                {
+                    var graphLine = new LineSeries
+                    {
+                        Title = $"Maclaurin Degree-{i+1}",
+                        Values = listOfcharValues[i],
+                        StrokeThickness = 3,
+                        PointGeometrySize = 1,
+                        Focusable = true,
+                        ForceCursor = true,
+                        Tag = listOfcharValues[i],
+                        //The Area Under the Graph
+                        Fill = System.Windows.Media.Brushes.Transparent,
+                    };
+                    lineSeries.Add(graphLine);
+                }
+
+                cartesianChart1.Series.AddRange(lineSeries);
+                GenerateBinaryGraph(maclaurinFunctions[maclaurinFunctions.Count - 1].GraphVizFormula, PbBinaryGraphSecondary);
+            }
+        }
     }
 
 
