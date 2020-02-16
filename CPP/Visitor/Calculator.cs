@@ -180,8 +180,16 @@ namespace CPP.Visitor
 
         public void Visit(ExponentialFun visitable) => visitable.Data = Convert.ToDecimal(Math.Exp(Convert.ToDouble(visitable.LeftNode.Data)));
 
-        public void Visit(LogarithmFunc visitable) => visitable.Data = Convert.ToDecimal(Math.Log10(Convert.ToDouble(visitable.LeftNode.Data)));
-
+        public void Visit(LogarithmFunc visitable) {
+            if (visitable.LeftNode.Data > 0)
+            {
+                visitable.Data = Convert.ToDecimal(Math.Log10(Convert.ToDouble(visitable.LeftNode.Data)));
+            }
+            else
+            {
+                visitable.Data = Convert.ToDecimal(Math.Log10(Convert.ToDouble(0.001)));
+            }
+        }
 
         public void Visit(SinFunc visitable) => visitable.Data = Convert.ToDecimal(Math.Sin(Convert.ToDouble(visitable.LeftNode.Data) * Math.PI/180));
 

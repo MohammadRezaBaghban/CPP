@@ -15,6 +15,7 @@ namespace CPP.Visitor
 
         BinaryTree binaryTree;
         Calculator calc;
+        public int numberOfSeries = 10;
 
         public Derivative(BinaryTree bt, Calculator cl) => (binaryTree, calc) = (bt, cl);
 
@@ -53,10 +54,15 @@ namespace CPP.Visitor
 
         public List<Component> MaclaurinSeries(Component visitable)
         {
+            
+            Component[] derivations = new Component[numberOfSeries-1];
+            Component[] MaclurinDegrees = new Component[numberOfSeries];
+
             calc.coordinateValue = 0;
             //Degree 0
             calc.Calculate(visitable);
             var degree0 = new SingleNode(null, visitable.Data);
+            MaclurinDegrees[0] = degree0;
 
             //Degree 1
             Calculate(visitable);
@@ -72,213 +78,54 @@ namespace CPP.Visitor
             binaryTree.InsertNode(multiply1, new SingleNode(multiply1));
 
             var degree1 = new AddOperator();
-            binaryTree.InsertNode(degree1, degree0);
+            binaryTree.InsertNode(degree1, MaclurinDegrees[0]);
             binaryTree.InsertNode(degree1, multiply1);
 
-            //Degree 2
-            Calculate(f1);
-            var f2 = f1.Derivation;
-            BinaryTree.Simplify(ref f2, ref f2.Parent);
-            BinaryTree.Simplify(ref f2, ref f2.Parent);
+            derivations[0] = f1;
+            MaclurinDegrees[1] = degree1;
 
-            calc.Calculate(f2);
-            var _2ndDerivation = new SingleNode(null, f2.Data);
+            for (int i = 0; i < numberOfSeries-2; i++)
+            {
+                var derivation = derivations[i];
+                Calculate(derivation);
 
-            var power2 = new PowerOperator();
-            binaryTree.InsertNode(power2, new SingleNode(power2));
-            binaryTree.InsertNode(power2, new SingleNode(power2,2));
+                var newDerivation = derivation.Derivation;
+                BinaryTree.Simplify(ref newDerivation, ref newDerivation.Parent);
+                BinaryTree.Simplify(ref newDerivation, ref newDerivation.Parent);
 
-            var multiply2 = new MultiplicationOperator();
-            binaryTree.InsertNode(multiply2, _2ndDerivation);
-            binaryTree.InsertNode(multiply2, power2);
+                calc.Calculate(newDerivation);
+                var _2ndDerivation = new SingleNode(null, newDerivation.Data);
 
-            var factorial2 = new FactorialFunc();
-            binaryTree.InsertNode(factorial2, new SingleNode(factorial2,2));
+                var powerOperator = new PowerOperator();
+                binaryTree.InsertNode(powerOperator, new SingleNode(powerOperator));
+                binaryTree.InsertNode(powerOperator, new SingleNode(powerOperator, 2));
 
+                var multiplyOperator = new MultiplicationOperator();
+                binaryTree.InsertNode(multiplyOperator, _2ndDerivation);
+                binaryTree.InsertNode(multiplyOperator, powerOperator);
 
-            var divison2 = new DivisionOperator();
-            binaryTree.InsertNode(divison2, multiply2);
-            binaryTree.InsertNode(divison2, factorial2);
+                var factorialOperator = new FactorialFunc();
+                binaryTree.InsertNode(factorialOperator, new SingleNode(factorialOperator, 2));
 
-            var degree2 = new AddOperator();
-            binaryTree.InsertNode(degree2, degree1);
-            binaryTree.InsertNode(degree2, divison2);
+                var divisonOperator = new DivisionOperator();
+                binaryTree.InsertNode(divisonOperator, multiplyOperator);
+                binaryTree.InsertNode(divisonOperator, factorialOperator);
 
-            //Degree 3
-            Calculate(f2);
-            var f3 = f2.Derivation;
+                var newDegree = new AddOperator();
+                binaryTree.InsertNode(newDegree, MaclurinDegrees[i+1]);
+                binaryTree.InsertNode(newDegree, divisonOperator);
 
-            BinaryTree.Simplify(ref f3, ref f3.Parent);
-            BinaryTree.Simplify(ref f3, ref f3.Parent);
-            
-            calc.Calculate(f3);
-            var _3rdDerivation = new SingleNode(null, f3.Data);
+                derivations[i+1] = newDerivation;
+                MaclurinDegrees[i+2] = newDegree;
+            }
 
-            var power3 = new PowerOperator();
-            binaryTree.InsertNode(power3, new SingleNode(power3));
-            binaryTree.InsertNode(power3, new SingleNode(power3, 3));
+            var listOfMaclurinDegrees = new List<Component>();
 
-            var multiply3 = new MultiplicationOperator();
-            binaryTree.InsertNode(multiply3, _3rdDerivation);
-            binaryTree.InsertNode(multiply3, power3);
-
-            var factorial3 = new FactorialFunc();
-            binaryTree.InsertNode(factorial3, new SingleNode(factorial3,3));
-
-            var divison3 = new DivisionOperator();
-            binaryTree.InsertNode(divison3, multiply3);
-            binaryTree.InsertNode(divison3, factorial3);
-
-            var degree3 = new AddOperator();
-            binaryTree.InsertNode(degree3, degree2);
-            binaryTree.InsertNode(degree3, divison3);
-
-            //Degree 4
-            Calculate(f3); 
-            var f4 = f3.Derivation;
-
-            BinaryTree.Simplify(ref f4, ref f4.Parent);
-            BinaryTree.Simplify(ref f4, ref f4.Parent);
-
-            calc.Calculate(f4);
-            var _4thDerivation = new SingleNode(null, f4.Data);
-
-            var power4 = new PowerOperator();
-            binaryTree.InsertNode(power4, new SingleNode(power4));
-            binaryTree.InsertNode(power4, new SingleNode(power4, 4));
-
-            var multiply4 = new MultiplicationOperator();
-            binaryTree.InsertNode(multiply4, _4thDerivation);
-            binaryTree.InsertNode(multiply4, power4);
-
-            var factorial4= new FactorialFunc();
-            binaryTree.InsertNode(factorial4, new SingleNode(factorial4, 4));
-
-            var divison4 = new DivisionOperator();
-            binaryTree.InsertNode(divison4, multiply4);
-            binaryTree.InsertNode(divison4, factorial4);
-
-            var degree4 = new AddOperator();
-            binaryTree.InsertNode(degree4, degree3);
-            binaryTree.InsertNode(degree4, divison4);
-
-            //Degree 5
-            Calculate(f4);
-            var f5 = f4.Derivation;
-
-            BinaryTree.Simplify(ref f5, ref f5.Parent);
-            BinaryTree.Simplify(ref f5, ref f5.Parent);
-
-            calc.Calculate(f5);
-            var _5thDerivation = new SingleNode(null, f5.Data);
-
-            var power5 = new PowerOperator();
-            binaryTree.InsertNode(power5, new SingleNode(power5));
-            binaryTree.InsertNode(power5, new SingleNode(power5, 5));
-
-            var multiply5 = new MultiplicationOperator();
-            binaryTree.InsertNode(multiply5, _5thDerivation);
-            binaryTree.InsertNode(multiply5, power5);
-
-            var factorial5 = new FactorialFunc();
-            binaryTree.InsertNode(factorial5, new SingleNode(factorial5, 5));
-
-            var divison5 = new DivisionOperator();
-            binaryTree.InsertNode(divison5, multiply5);
-            binaryTree.InsertNode(divison5, factorial5);
-
-            var degree5 = new AddOperator();
-            binaryTree.InsertNode(degree5, degree4);
-            binaryTree.InsertNode(degree5, divison5);
-
-            //Degree 6
-            Calculate(f5);
-            var f6 = f5.Derivation;
-
-            BinaryTree.Simplify(ref f6, ref f6.Parent);
-            BinaryTree.Simplify(ref f6, ref f6.Parent);
-
-            calc.Calculate(f6);
-            var _6thDerivation = new SingleNode(null, f6.Data);
-
-            var power6 = new PowerOperator();
-            binaryTree.InsertNode(power6, new SingleNode(power6));
-            binaryTree.InsertNode(power6, new SingleNode(power6, 6));
-
-            var multiply6 = new MultiplicationOperator();
-            binaryTree.InsertNode(multiply6, _6thDerivation);
-            binaryTree.InsertNode(multiply6, power6);
-
-            var factorial6 = new FactorialFunc();
-            binaryTree.InsertNode(factorial6, new SingleNode(factorial6, 6));
-
-            var divison6 = new DivisionOperator();
-            binaryTree.InsertNode(divison6, multiply6);
-            binaryTree.InsertNode(divison6, factorial6);
-
-            var degree6 = new AddOperator();
-            binaryTree.InsertNode(degree6, degree5);
-            binaryTree.InsertNode(degree6, divison6);
-
-            //Degree 7
-            Calculate(f6);
-            var f7 = f6.Derivation;
-
-            BinaryTree.Simplify(ref f7, ref f7.Parent);
-            BinaryTree.Simplify(ref f7, ref f7.Parent);
-
-            calc.Calculate(f7);
-            var _7thDerivation = new SingleNode(null, f7.Data);
-
-            var power7 = new PowerOperator();
-            binaryTree.InsertNode(power7, new SingleNode(power7));
-            binaryTree.InsertNode(power7, new SingleNode(power7, 7));
-
-            var multiply7 = new MultiplicationOperator();
-            binaryTree.InsertNode(multiply7, _7thDerivation);
-            binaryTree.InsertNode(multiply7, power7);
-
-            var factorial7 = new FactorialFunc();
-            binaryTree.InsertNode(factorial7, new SingleNode(factorial7, 7));
-
-            var divison7 = new DivisionOperator();
-            binaryTree.InsertNode(divison7, multiply7);
-            binaryTree.InsertNode(divison7, factorial7);
-
-            var degree7 = new AddOperator();
-            binaryTree.InsertNode(degree7, degree6);
-            binaryTree.InsertNode(degree7, divison7);
-
-            //Degree 8
-            Calculate(f7);
-            var f8 = f7.Derivation;
-
-            BinaryTree.Simplify(ref f8, ref f8.Parent);
-            BinaryTree.Simplify(ref f8, ref f8.Parent);
-
-            calc.Calculate(f8);
-            var _8thDerivation = new SingleNode(null, f8.Data);
-
-            var power8 = new PowerOperator();
-            binaryTree.InsertNode(power8, new SingleNode(power8));
-            binaryTree.InsertNode(power8, new SingleNode(power8, 8));
-
-            var multiply8 = new MultiplicationOperator();
-            binaryTree.InsertNode(multiply8, _8thDerivation);
-            binaryTree.InsertNode(multiply8, power8);
-
-            var factorial8 = new FactorialFunc();
-            binaryTree.InsertNode(factorial8, new SingleNode(factorial8, 7));
-
-            var divison8 = new DivisionOperator();
-            binaryTree.InsertNode(divison8, multiply8);
-            binaryTree.InsertNode(divison8, factorial8);
-
-            var degree8 = new AddOperator();
-            binaryTree.InsertNode(degree8, degree7);
-            binaryTree.InsertNode(degree8, divison8);
-
-            return new List<Component>() { degree0,degree1,degree2,degree3,degree4,degree5,degree6,degree7,degree8};
+            foreach (var degree in MaclurinDegrees)
+            {
+                listOfMaclurinDegrees.Add(degree);
+            }
+            return listOfMaclurinDegrees;
         }
         public void Visit(AddOperator visitable)
         {

@@ -21,10 +21,10 @@ namespace CPP.Visitable.Node
 
         //Constructors
         public SingleNode(Component parent) =>
-            (Parent, IsVariable, InFixFormula, Symbol, NodeNumber) = (parent, true, "x", InFixFormula, ++FormulaParse.nodeCounter);
+            (Parent, IsVariable, InFixFormula, Symbol, NodeNumber) = (parent, true, "x", "x", ++FormulaParse.nodeCounter);
         
         public SingleNode(Component parent, decimal data) =>
-            (Parent, Data, Symbol, NodeNumber) = (parent, data, InFixFormula, ++FormulaParse.nodeCounter);
+            (Parent, Data, Symbol, NodeNumber) = (parent, data, data.ToString(), ++FormulaParse.nodeCounter);
         
         //Methods
         public override void Evaluate(IVisitor visitor)

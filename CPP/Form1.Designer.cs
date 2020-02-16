@@ -85,6 +85,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1759, 261);
             this.panel1.TabIndex = 0;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // Btn_Polynomial_Intropolate
             // 
@@ -134,6 +135,7 @@
             this.LblEndingPoint.Size = new System.Drawing.Size(38, 38);
             this.LblEndingPoint.TabIndex = 19;
             this.LblEndingPoint.Text = "Y:";
+            this.LblEndingPoint.Visible = false;
             // 
             // LblStartingPoint
             // 
@@ -143,6 +145,7 @@
             this.LblStartingPoint.Size = new System.Drawing.Size(40, 38);
             this.LblStartingPoint.TabIndex = 18;
             this.LblStartingPoint.Text = "X:";
+            this.LblStartingPoint.Visible = false;
             // 
             // BtnRiemannIntegral
             // 
@@ -236,7 +239,7 @@
             this.PbBinaryGraphRoot.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PbBinaryGraphRoot.Location = new System.Drawing.Point(0, 0);
             this.PbBinaryGraphRoot.Name = "PbBinaryGraphRoot";
-            this.PbBinaryGraphRoot.Size = new System.Drawing.Size(676, 271);
+            this.PbBinaryGraphRoot.Size = new System.Drawing.Size(676, 233);
             this.PbBinaryGraphRoot.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.PbBinaryGraphRoot.TabIndex = 3;
             this.PbBinaryGraphRoot.TabStop = false;
@@ -247,7 +250,7 @@
             this.PbBinaryGraphSecondary.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PbBinaryGraphSecondary.Location = new System.Drawing.Point(0, 0);
             this.PbBinaryGraphSecondary.Name = "PbBinaryGraphSecondary";
-            this.PbBinaryGraphSecondary.Size = new System.Drawing.Size(676, 415);
+            this.PbBinaryGraphSecondary.Size = new System.Drawing.Size(676, 453);
             this.PbBinaryGraphSecondary.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.PbBinaryGraphSecondary.TabIndex = 4;
             this.PbBinaryGraphSecondary.TabStop = false;
@@ -276,7 +279,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.PbBinaryGraphSecondary);
             this.splitContainer1.Size = new System.Drawing.Size(676, 690);
-            this.splitContainer1.SplitterDistance = 271;
+            this.splitContainer1.SplitterDistance = 233;
             this.splitContainer1.TabIndex = 0;
             // 
             // panel3
@@ -325,6 +328,8 @@
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form1";
             this.Text = "Form1";
             this.panel1.ResumeLayout(false);

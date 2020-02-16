@@ -21,6 +21,7 @@ namespace CPP.Visitable.Node
             SingleNode singleNode = node as SingleNode;
             if (singleNode != null)
             {
+
                 return InsertSingleNode(root, singleNode);
             }
             else
@@ -38,7 +39,6 @@ namespace CPP.Visitable.Node
                 return _root;
             }
 
-
             if (newNode is Function)
             {
                 //Try to put the function on the left side of tree
@@ -55,7 +55,6 @@ namespace CPP.Visitable.Node
                         {
                             return InsertNode(root.Parent, newNode);
                         }
-
                     }
                 }
                 else
@@ -100,11 +99,8 @@ namespace CPP.Visitable.Node
                             {
                                 return InsertNode(root.Parent, newNode);
                             }
-
                         }
-                    }
-
-                    
+                    }                    
                 }
                 
                 
@@ -184,25 +180,36 @@ namespace CPP.Visitable.Node
 
         internal Component InsertSingleNode(Component root, SingleNode singleNode)
         {
+            //For the sake of preventing duplicate pointing to a single node more than 1 on the time of derivation
+            SingleNode newSingleNode;
+            if (singleNode.IsVariable)
+            {
+                newSingleNode = new SingleNode(singleNode.Parent);
+            }
+            else
+            {
+                newSingleNode = new SingleNode(singleNode.Parent,singleNode.Data);
+            }
+
             //Try to put the signle node on the left side of tree as much as possible
-            if(root is Function)
+            if (root is Function)
             {
                 if (root.LeftNode == null)
                 {
-                    root.LeftNode = singleNode;
+                    root.LeftNode = newSingleNode;
                     root.LeftNode.Parent = root;
-                    return singleNode.Parent;
+                    return newSingleNode.Parent;
                 }
                 else
                 {
                     //If both left and right node were full, insert it to the parent
                     if (root.Parent != null)
                     {
-                        return InsertNode(root.Parent, singleNode);
+                        return InsertNode(root.Parent, newSingleNode);
                     }
                     else
                     {
-                        return singleNode.Parent;
+                        return newSingleNode.Parent;
                     }
                 }
             }
@@ -210,30 +217,28 @@ namespace CPP.Visitable.Node
             {
                 if (root.LeftNode == null)
                 {
-                    root.LeftNode = singleNode;
+                    root.LeftNode = newSingleNode;
                     root.LeftNode.Parent = root;
-                    return singleNode.Parent;
+                    return newSingleNode.Parent;
                 }
                 else if (root.RightNode == null)
                 {
-                    root.RightNode = singleNode;
+                    root.RightNode = newSingleNode;
                     root.RightNode.Parent = root;
-                    return singleNode.Parent;
+                    return newSingleNode.Parent;
                 }else
                 {
                     //If both left and right node were full, insert it to the parent
                     if (root.Parent != null)
                     {
-                        return InsertNode(root.Parent, singleNode);
+                        return InsertNode(root.Parent, newSingleNode);
                     }
                     else
                     {
-                        return singleNode.Parent;
-                    }
-                    
+                        return newSingleNode.Parent;
+                    }                    
                 }
-            }
-            
+            }            
         }
 
         public static void Simplify(ref Component visitable, ref Component root)

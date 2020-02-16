@@ -161,7 +161,7 @@ namespace CPP
                 dot.StartInfo.Arguments = "-Tpng -oab.png ab.dot";
                 dot.Start();
                 dot.WaitForExit();
-                pb.ImageLocation = "ab.png";
+                pb.ImageLocation = "ab.png";                
             }
             else
             {
@@ -235,6 +235,7 @@ namespace CPP
             BinaryTree.Simplify(ref derivation, ref derivation.Parent);
 
             infixGenerator.Calculate(derivation);
+            LbInfixFourmula.Text = derivation.InFixFormula;
             GenerateGraphVizBinaryGraph(derivation.GraphVizFormula, PbBinaryGraphSecondary);
 
             if (derivation.InFixFormula.Contains("Exp") || derivation.InFixFormula.Contains("!"))
@@ -289,14 +290,23 @@ namespace CPP
         {
             if (rootOfBinaryTree == null)
             {
+                
                 MessageBox.Show("Please parse a valid function fisrt");
             }
             else
             {
                 if (countOfSelectedPoints == 0)
                 {
+                    LblStartingPoint.Visible = true;
+                    LblEndingPoint.Visible = true;
                     LblStartingPoint.Text = $"X1: ";
                     LblEndingPoint.Text = $"X2: ";
+
+                    //Only show the function that would be used for Riemann Calculation
+                    var actualfunction = cartesianChart1.Series[0];
+                    cartesianChart1.Series.Clear();
+                    cartesianChart1.Series.Add(actualfunction);
+                    
                     cartesianChart1.DataClick += Riemann_Chart_DataClick_;
                     MessageBox.Show("Select two point from the graph");
                 }
@@ -357,10 +367,13 @@ namespace CPP
             }
             else
             {
+
+            }
+            {
                 var maclaurinFunctions = derivationCalculator.MaclaurinSeries(rootOfBinaryTree);
 
                 List<ChartValues<ObservablePoint>> listOfcharValues = new List<ChartValues<ObservablePoint>>();
-                for (int i = 0; i < 9; i++)
+                for (int i = 0; i < derivationCalculator.numberOfSeries; i++)
                 {
                     if (maclaurinFunctions[i].GraphVizFormula.Contains("Exp") || maclaurinFunctions[i].GraphVizFormula.Contains("!"))
                     {
@@ -378,7 +391,7 @@ namespace CPP
                 }
 
                 List<LineSeries> lineSeries = new List<LineSeries>();
-                for (int i = 0; i < 9; i++)
+                for (int i = 0; i < derivationCalculator.numberOfSeries; i++)
                 {
                     var graphLine = new LineSeries
                     {
@@ -397,7 +410,8 @@ namespace CPP
 
                 cartesianChart1.Series.AddRange(lineSeries);
                 GenerateGraphVizBinaryGraph(maclaurinFunctions[maclaurinFunctions.Count - 1].GraphVizFormula, PbBinaryGraphSecondary);
-            }
+                Process.Start($"{PbBinaryGraphSecondary.ImageLocation}");
+            }   
         }
 
         private void Btn_NPolynomialPoint_Click(object sender, EventArgs e)
@@ -426,30 +440,59 @@ namespace CPP
         private void Btn_Polynomial_Intropolate_Click(object sender, EventArgs e)
         {
             cartesianChart1.Visible = true;
-            var selectedCoordinates = polynomial.ParseSelectedCoordiantes(TbPrefixFormula.Text);
-            var augmentedMatrix = polynomial.GenerateAugmentedMatrix(selectedCoordinates);
-            var coefficientsSolution = polynomial.GaussianElimination(augmentedMatrix, augmentedMatrix.GetLength(0));
-            var formula = polynomial.StandardPolynomialFormula(coefficientsSolution);
-            var polynomials_terms = polynomial.GeneratePolynomialFunction(coefficientsSolution);
-            var Function_Values = CalculateGraphPoints(polynomial.CalculatePolynomialfunction(polynomials_terms));
-            label2.Text = "Ploynomial Formula:";
-            LbInfixFourmula.Text = formula;
-            var graphLine = new LineSeries
+            try
             {
-                Title = $"Polynomial {formula}",
-                Values = Function_Values,
-                StrokeThickness = 3,
-                PointGeometrySize = 1,
-                Focusable = true,
-                ForceCursor = true,
-                Tag = Function_Values,
-                //The Area Under the Graph
-                Fill = System.Windows.Media.Brushes.Transparent,
-            };
-            cartesianChart1.Series.Add(graphLine);
+                var selectedCoordinates = polynomial.ParseSelectedCoordiantes(TbPrefixFormula.Text);
+                var augmentedMatrix = polynomial.GenerateAugmentedMatrix(selectedCoordinates);
+                var coefficientsSolution = polynomial.GaussianElimination(augmentedMatrix, augmentedMatrix.GetLength(0));
+                var formula = polynomial.StandardPolynomialFormula(coefficientsSolution);
+                var polynomials_terms = polynomial.GeneratePolynomialFunction(coefficientsSolution);
+                var Function_Values = CalculateGraphPoints(polynomial.CalculatePolynomialfunction(polynomials_terms));
+                var Coordiante_Value = CalculateGraphPoints(selectedCoordinates);
+                TbPrefixFormula.Text = formula;
+                MessageBox.Show($"Formula of Polynomial:\n" + $"{formula}");
+               
+                var graphLineOfPolynomial = new LineSeries
+                {
+                    Title = $"Polynomial {formula}",
+                    Values = Function_Values,
+                    StrokeThickness = 3,
+                    PointGeometrySize = 1,
+                    Focusable = true,
+                    ForceCursor = true,
+                    Tag = Function_Values,
+
+                    //The Area Under the Graph
+                    Fill = System.Windows.Media.Brushes.Transparent,
+                };
+                var graphLineOfSelectedPoint = new LineSeries
+                {
+                    Title = $"Selected Coordinates",
+                    Values = Coordiante_Value,
+                    StrokeThickness = 3,
+                    PointGeometrySize = 10,
+                    Focusable = false,
+                    ForceCursor = true,
+                    Tag = Coordiante_Value,
+                    //The Area Under the Graph
+                    Fill = System.Windows.Media.Brushes.Transparent,
+                };
+
+                cartesianChart1.Series.Add(graphLineOfPolynomial);
+                cartesianChart1.Series.Add(graphLineOfSelectedPoint);
+
+            }
+            catch
+            {
+                MessageBox.Show("Please Provide the coordinates in correct format X,Y; by selecting points first");
+            }   
+                                  
         }
 
-        
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 
 
