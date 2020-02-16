@@ -163,7 +163,7 @@ namespace CPP.Visitor
 
         public void Visit(MultiplicationOperator visitable) => visitable.Data = visitable.LeftNode.Data * visitable.RightNode.Data;
 
-        public void Visit(DivisionOperator visitable)
+        public void Visit(DivisionOperator visitable) 
         {
             if (visitable.RightNode.Data == 0)
             {

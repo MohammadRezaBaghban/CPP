@@ -15,32 +15,17 @@ namespace CPP.Visitable.Node
 
         //Fields
         public bool IsVariable;
-        public override string GraphVizFormula{
-            get{                
-                return $"node{NodeNumber} [ label = \"{Symbol}\" ]";
-            }           
+        public override string GraphVizFormula {
+            get => $"node{NodeNumber} [ label = \"{Symbol}\" ]";         
         }
 
         //Constructors
-        public SingleNode(Component parent)
-        {
-            Parent = parent;
-            IsVariable = true;
-            InFixFormula = "x";
-            Symbol = InFixFormula;
-            NodeNumber = ++FormulaParse.nodeCounter;
-        }
-        public SingleNode(Component parent, decimal data)
-        {
-            Parent = parent;
-            Data = data;
-            InFixFormula = $"{data}";
-            Symbol = InFixFormula;            
-            NodeNumber = ++FormulaParse.nodeCounter;
-
-        }
-
-
+        public SingleNode(Component parent) =>
+            (Parent, IsVariable, InFixFormula, Symbol, NodeNumber) = (parent, true, "x", InFixFormula, ++FormulaParse.nodeCounter);
+        
+        public SingleNode(Component parent, decimal data) =>
+            (Parent, Data, Symbol, NodeNumber) = (parent, data, InFixFormula, ++FormulaParse.nodeCounter);
+        
         //Methods
         public override void Evaluate(IVisitor visitor)
         {
@@ -52,21 +37,6 @@ namespace CPP.Visitable.Node
             
         }
 
-        public override string ToString()
-        {
-            if (IsVariable)
-            {
-                return $"Variable X";
-            }
-            else
-            {
-                return $"Number {Data}";
-            }
-                          
-        }
-
-        
-
-       
+        public override string ToString() => IsVariable ? $"Variable X" : $"Number {Data}";              
     }
 }

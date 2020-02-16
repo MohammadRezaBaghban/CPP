@@ -27,10 +27,7 @@ namespace CPP.Visitable.Node
 
         public virtual string GraphVizFormula { get; }
 
-        public object Clone()
-        {
-            return this.MemberwiseClone();
-        }
+        public object Clone() => this.MemberwiseClone();
 
         public abstract void Evaluate(IVisitor visitor);
     }

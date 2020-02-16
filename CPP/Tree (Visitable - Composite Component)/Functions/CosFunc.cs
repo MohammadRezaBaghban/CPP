@@ -11,15 +11,10 @@ namespace CPP.Functions
     public class CosFunc : Function
     {
 
-        public CosFunc()
-        {
-            base.Symbol = "Cos";
-        }
+        public CosFunc() => base.Symbol = "Cos";
 
-        public override void Evaluate(IVisitor c)
-        {
-            c.Visit(this);
-        }
+        public override void Evaluate(IVisitor c) => c.Visit(this);
+
         
        
     }

@@ -10,14 +10,8 @@ namespace CPP.Functions
 {
     public class FactorialFunc : Function
     {
-        public FactorialFunc()
-        {
-            Symbol = "!";
-        }
+        public FactorialFunc() => Symbol = "!";
 
-        public override void Evaluate(IVisitor c)
-        {
-            c.Visit(this);
-        }
+        public override void Evaluate(IVisitor c) => c.Visit(this);
     }
 }

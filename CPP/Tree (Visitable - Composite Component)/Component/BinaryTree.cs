@@ -14,10 +14,7 @@ namespace CPP.Visitable.Node
     {
         public CompositeNode _root;
 
-        public BinaryTree()
-        {
-            _root = null;
-        }   
+        public BinaryTree() => _root = null;
 
         public Component InsertNode(Component root, Component node)
         {

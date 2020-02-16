@@ -10,15 +10,8 @@ namespace CPP.Tree__Visitable___Composite_Component_.Functions
 {
     public class LogarithmFunc : Function
     {
-        public LogarithmFunc()
-        {
-            Symbol = "Ln";
-        }
+        public LogarithmFunc() => Symbol = "Ln";
 
-        public override void Evaluate(IVisitor c)
-        {
-            c.Visit(this);
-        }
-
+        public override void Evaluate(IVisitor c) => c.Visit(this);
     }
 }

@@ -11,11 +11,11 @@ using CPP.Visitor;
 namespace CPP.Visitable.Node
 {
     [DebuggerDisplay("{ToString()}")]
-    public abstract class CompositeNode : Component,ICloneable
+    public abstract class CompositeNode : Component, ICloneable
     {
         //Fields
-        public IMathematicalOperation operatorType;        
-                     
+        public IMathematicalOperation operatorType;
+
         public override string GraphVizFormula
         {
             get
@@ -34,23 +34,19 @@ namespace CPP.Visitable.Node
                 }
                 return temp;
             }
-        }     
+        }
 
         //Methods
-        public abstract bool OneInput();        
+        public abstract bool OneInput();
 
-        public override string ToString()
-        {
-            return $"Object Type: {this.GetType().Name}"
+        public override string ToString() =>
+                    $"Object Type: {this.GetType().Name}"
                    + $" | Data: {this.Data.ToString()}"
                    + $" | Parent: {(this.Parent?.GetType().Name) ?? "Null"}"
                    + $" | RightNode: {RightNode.GetType().Name}"
                    + $" | LeftNode: {LeftNode.GetType().Name}";
-        }
 
-        public object Clone()
-        {
-            return this.MemberwiseClone();
-        }
+        public object Clone() => this.MemberwiseClone();
+
     }
 }

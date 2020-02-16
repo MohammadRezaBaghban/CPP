@@ -91,6 +91,7 @@
     <Compile Include="Visitor\Derivative.cs" />
     <Compile Include="Visitor\Infix_Generator.cs" />
     <Compile Include="Visitor\IVisitor.cs" />
+    <Compile Include="Visitor\Polynomial_Calculator.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

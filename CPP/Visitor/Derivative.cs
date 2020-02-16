@@ -15,11 +15,8 @@ namespace CPP.Visitor
 
         BinaryTree binaryTree;
         Calculator calc;
-        public Derivative(BinaryTree bt, Calculator cl)
-        {
-            binaryTree = bt;
-            calc = cl;
-        }
+
+        public Derivative(BinaryTree bt, Calculator cl) => (binaryTree, calc) = (bt, cl);
 
         public void Calculate(Component visitable)
         {

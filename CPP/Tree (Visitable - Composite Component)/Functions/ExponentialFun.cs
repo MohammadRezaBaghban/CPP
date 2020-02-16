@@ -10,14 +10,8 @@ namespace CPP.Functions
 {
     public class ExponentialFun : Function
     {
-        public ExponentialFun()
-        {
-            Symbol = "Exp";
-        }
+        public ExponentialFun() => Symbol = "Exp";
 
-        public override void Evaluate(IVisitor c)
-        {
-            c.Visit(this);
-        }
+        public override void Evaluate(IVisitor c) => c.Visit(this);
     }
 }

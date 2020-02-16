@@ -10,14 +10,8 @@ namespace CPP.Functions
 {
     public class SinFunc : Function
     {
-        public SinFunc()
-        {
-            Symbol = "Sin";
-        }
+        public SinFunc()=>Symbol = "Sin";
 
-        public override void Evaluate(IVisitor c)
-        {
-            c.Visit(this);
-        }
+        public override void Evaluate(IVisitor c) => c.Visit(this);
     }
 }

@@ -119,7 +119,7 @@
             // LblRiemannArea
             // 
             this.LblRiemannArea.AutoSize = true;
-            this.LblRiemannArea.Location = new System.Drawing.Point(276, 145);
+            this.LblRiemannArea.Location = new System.Drawing.Point(271, 138);
             this.LblRiemannArea.Name = "LblRiemannArea";
             this.LblRiemannArea.Size = new System.Drawing.Size(88, 38);
             this.LblRiemannArea.TabIndex = 20;
@@ -129,7 +129,7 @@
             // LblEndingPoint
             // 
             this.LblEndingPoint.AutoSize = true;
-            this.LblEndingPoint.Location = new System.Drawing.Point(150, 145);
+            this.LblEndingPoint.Location = new System.Drawing.Point(146, 138);
             this.LblEndingPoint.Name = "LblEndingPoint";
             this.LblEndingPoint.Size = new System.Drawing.Size(38, 38);
             this.LblEndingPoint.TabIndex = 19;
@@ -138,7 +138,7 @@
             // LblStartingPoint
             // 
             this.LblStartingPoint.AutoSize = true;
-            this.LblStartingPoint.Location = new System.Drawing.Point(14, 145);
+            this.LblStartingPoint.Location = new System.Drawing.Point(14, 138);
             this.LblStartingPoint.Name = "LblStartingPoint";
             this.LblStartingPoint.Size = new System.Drawing.Size(40, 38);
             this.LblStartingPoint.TabIndex = 18;
@@ -187,7 +187,7 @@
             // LbInfixFourmula
             // 
             this.LbInfixFourmula.AutoSize = true;
-            this.LbInfixFourmula.Location = new System.Drawing.Point(288, 87);
+            this.LbInfixFourmula.Location = new System.Drawing.Point(14, 220);
             this.LbInfixFourmula.Name = "LbInfixFourmula";
             this.LbInfixFourmula.Size = new System.Drawing.Size(105, 38);
             this.LbInfixFourmula.TabIndex = 12;
@@ -196,7 +196,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 87);
+            this.label2.Location = new System.Drawing.Point(12, 176);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(283, 38);
             this.label2.TabIndex = 11;

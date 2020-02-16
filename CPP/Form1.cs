@@ -17,26 +17,29 @@ namespace CPP
 {
     public partial class Form1 : Form
     {
+        Polynomial_Calculator polynomial;
+        Derivative derivationCalculator;
         Infix_Generator infixGenerator;
         FormulaParse formulaParser;
         Calculator calculator;
         Graphics g;
-        Derivative derivationCalculator;
-        Dictionary<int, int> selectedCoordinates;
+
         List<int> selectedPonits;
         int countOfSelectedPoints = 0;
 
         CompositeNode rootOfBinaryTree;
         Visitable.Node.Component derivation;
+
         public Form1()
         {
             InitializeComponent();
             selectedPonits = new List<int>();
             formulaParser = new FormulaParse();
-            infixGenerator = new Infix_Generator();
             calculator = new Calculator();
-            selectedCoordinates = new Dictionary<int, int>();
-            derivationCalculator = new Derivative(new BinaryTree(), new Calculator());
+            infixGenerator = new Infix_Generator();
+            polynomial = new Polynomial_Calculator(new BinaryTree(),calculator);
+            derivationCalculator = new Derivative(new BinaryTree(), calculator);
+
             g = panel3.CreateGraphics();
 
             // Adding Horizontal and Vertical Seperator to Chart
@@ -206,7 +209,6 @@ namespace CPP
         private void BtnClearPlot_Click(object sender, EventArgs e)
         {
             cartesianChart1.Series.Clear();
-            selectedCoordinates.Clear();
             selectedPonits.Clear();
             panel3.Refresh();
             rootOfBinaryTree = null;
@@ -219,6 +221,7 @@ namespace CPP
             LblEndingPoint.Text = "Y:";
             LblStartingPoint.Text = "X:";
             LbInfixFourmula.Text = "--------";
+            label2.Text = "InFix Formula (x=10):";
             PbBinaryGraphRoot.ImageLocation = "";
             PbBinaryGraphSecondary.ImageLocation = "";
             LblSelectedPoints.Text = "Please Select Your Points";
@@ -245,7 +248,7 @@ namespace CPP
             }
             else
             {
-                DrawGraphOnCanvas(derivation, 200);
+                DrawGraphOnCanvas(derivation, 500);
             }
         }
 
@@ -423,26 +426,30 @@ namespace CPP
         private void Btn_Polynomial_Intropolate_Click(object sender, EventArgs e)
         {
             cartesianChart1.Visible = true;
-            var coordinates = TbPrefixFormula.Text.Split(';');
-            for (int i = 0; i < coordinates.Length - 1; i++)
+            var selectedCoordinates = polynomial.ParseSelectedCoordiantes(TbPrefixFormula.Text);
+            var augmentedMatrix = polynomial.GenerateAugmentedMatrix(selectedCoordinates);
+            var coefficientsSolution = polynomial.GaussianElimination(augmentedMatrix, augmentedMatrix.GetLength(0));
+            var formula = polynomial.StandardPolynomialFormula(coefficientsSolution);
+            var polynomials_terms = polynomial.GeneratePolynomialFunction(coefficientsSolution);
+            var Function_Values = CalculateGraphPoints(polynomial.CalculatePolynomialfunction(polynomials_terms));
+            label2.Text = "Ploynomial Formula:";
+            LbInfixFourmula.Text = formula;
+            var graphLine = new LineSeries
             {
-                var xy = coordinates[i].Split(',');
-                selectedCoordinates.Add(Convert.ToInt32(xy[0]), Convert.ToInt32(xy[1]));
-            }
-            int[,] augmentedMatrix = new int[selectedCoordinates.Count, selectedCoordinates.Count + 1];
-
-            var Xs = selectedCoordinates.Keys.ToArray();
-            var Ys = selectedCoordinates.Values.ToArray();
-            for (int i = 0; i < augmentedMatrix.GetLength(0); i++)
-            {
-                var degreeOfTerm = augmentedMatrix.GetLength(1)-2;
-                for (int j = 0; j< augmentedMatrix.GetLength(1); j++)
-                {
-                    augmentedMatrix[i, j] = Convert.ToInt32(Math.Pow(Xs[i], degreeOfTerm--));
-                }
-                augmentedMatrix[i, selectedCoordinates.Count] = Ys[i];
-            }          
+                Title = $"Polynomial {formula}",
+                Values = Function_Values,
+                StrokeThickness = 3,
+                PointGeometrySize = 1,
+                Focusable = true,
+                ForceCursor = true,
+                Tag = Function_Values,
+                //The Area Under the Graph
+                Fill = System.Windows.Media.Brushes.Transparent,
+            };
+            cartesianChart1.Series.Add(graphLine);
         }
+
+        
     }
 
 
